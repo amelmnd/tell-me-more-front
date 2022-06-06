@@ -1,16 +1,20 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios"
+
 import "../../asset/scss/backoffice/createForm.scss";
 
 import CustomButtomForm from "../../components/CustomButtomForm";
 import QuestionTextInput from "../../components/QuestionTextInput";
 
 const CreateNewForm = () => {
+  const [isLoading, setIsLoading] = useState(true)
+
   const [title, setTitle] = useState(""); //OK
 
   const [addInput, setAddInput] = useState([]); //OK
   const [inputQuestionsValue, setQuestionsValue] = useState([]);
-  console.log('inputQuestionsValue', inputQuestionsValue);
+  console.log("inputQuestionsValue", inputQuestionsValue);
   const [typeInput, setTypeInput] = useState("");
   const [question, setQuestion] = useState("");
 
@@ -27,13 +31,22 @@ const CreateNewForm = () => {
     console.log("deleteForm", "deleteForm");
   };
 
-  const saveNewForm = (event) => {
-    event.preventDefault();
-    const formData = {
-      title,
-      question: inputQuestionsValue,
-    };
-    console.log("formData", formData);
+  const saveNewForm = async (event) => {
+    try {      
+      event.preventDefault();
+      const formData = {
+        title,
+        question: inputQuestionsValue,
+      };
+      const response = await axios.post(
+        "http://localhost:3200/backoffice/create",
+        formData
+      );
+      console.log(response.data)
+      setIsLoading(false);
+
+      console.log("formData", formData);
+    } catch (error) {}
   };
 
   return (
@@ -68,7 +81,7 @@ const CreateNewForm = () => {
 
           {/* permet d'afficher les imputs créeer grace au bouton  */}
           {addInput &&
-            addInput.map(({type, color, icon}, index) => {
+            addInput.map(({ type, color, icon }, index) => {
               return (
                 <QuestionTextInput
                   index={index}
