@@ -1,0 +1,154 @@
+@import "fontsCustom.scss";
+@import "colors.scss";
+
+html {
+  box-sizing: border-box;
+  font-family: "Averta Std PE"
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+h1 {
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 44px;
+  color: #0e401c;
+}
+
+.greenPage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  width: 90vw;
+  min-height: 75vh;
+  margin: 5vh auto 0 auto;
+  padding-top: 2rem;
+  background-color: #eaf9ec;
+}
+
+.whitePage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  width: 90vw;
+  min-height: 75vh;
+  margin: 5vh auto 0 auto;
+  padding-top: 2rem;
+  background-color: #fff;
+}
+
+.header {
+  border-bottom: 1px solid #d3d3d3;
+}
+
+.headerDiv {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 2% 5% 3% 5%;
+}
+
+.header-logo {
+  width: 250px;
+}
+
+/* BUTTONS */
+.greenButton {
+  width: 142px;
+  
+  padding: 0.6rem;
+  border: none;
+  border-radius: 0.4rem;
+  background-color: #62c188;
+  color: #fff;
+  font-size: 1rem;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+
+  &:hover {
+    border: 1px solid #62c188;
+    background-color: #fff;
+    color: #62c188;
+  }
+}
+
+
+.redButton {
+  width: 140px;
+  
+  padding: 0.6rem;
+  border: 1px solid #ff7b6f;
+  border-radius: 0.4rem;
+  background-color: #fff;
+  text-decoration: none;
+  color: #ff7b6f;
+  text-align: center;
+  cursor: pointer;
+  &:hover {
+    background-color: #ff7b6f;
+    color: #fff;  }
+
+}
+
+
+
+
+.homeBackofficeContainer {
+  display: flex;
+  flex-wrap: wrap;
+
+  div {
+    margin: 20px;
+  }
+}
+
+
+// addInputButton {
+//   box-sizing: border-box;
+
+// position: absolute;
+// left: 0%;
+// right: 0%;
+// top: 0%;
+// bottom: 0%;
+
+// border: 1px solid #62C188;
+// border-radius: 5px;
+// }
+// addInputButton p {
+//   font-family: 'Averta Std PE';
+// font-style: normal;
+// font-weight: 700;
+// font-size: 18px;
+// line-height: 22px;
+// display: flex;
+// align-items: center;
+
+// color: #62C188;
+
+// }
+
+// inputAdded {
+
+// }
+// inputAddedOranges {}
+// inputAddedPink{}
+// inputAddedBue {}
+// inputAddedRed {}
+
+// picto {
+//   width: 50;
+//   height: 50px;
+//   color: #000000  ;
+// }

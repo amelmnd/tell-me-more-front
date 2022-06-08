@@ -1,10 +1,12 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
+import style from  "../asset/scss/login.scss";
+
+
 const Login = ({ setAdminCookie }) => {
-  const [password, setPassword] = useState("admin");
+  const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState(false);
-  console.log("password", password);
 
   const navigate = useNavigate();
 
@@ -26,23 +28,13 @@ const Login = ({ setAdminCookie }) => {
     console.log("password handleSubmit ", password);
   };
 
-  const [hover, setHover] = useState(false);
-
-  const MouseOver = () => {
-    setHover(true);
-  };
-
-  const MouseOut = () => {
-    setHover(false);
-  };
-
   const ref = useRef(null);
   useEffect(() => {
     ref?.current?.focus?.();
   }, [ref]);
 
   return (
-    <div>
+    <div className="whitePage">
       <h1>Accéder à mon espace Admin</h1>
       <form className="loginForm" onSubmit={handleSubmit}>
         <input
@@ -56,12 +48,10 @@ const Login = ({ setAdminCookie }) => {
         <input
           type="submit"
           value="Se connecter"
-          className={hover ? "buttonLoginHover" : "buttonBackLoginNormal"}
-          onMouseOver={MouseOver}
-          onMouseOut={MouseOut}
+          className={"button,  greenButton"}
         />
       </form>
-      {passwordError && <p>Veuillez entrer une adresse email valide.</p>}
+      {passwordError && <p>Veuillez entrer un mot de passe valide.</p>}
     </div>
   );
 };

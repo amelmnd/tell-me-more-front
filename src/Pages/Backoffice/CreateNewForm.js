@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios"
+import axios from "axios";
 
 import "../../asset/scss/backoffice/createForm.scss";
 
@@ -8,7 +8,7 @@ import CustomButtomForm from "../../components/CustomButtomForm";
 import QuestionTextInput from "../../components/QuestionTextInput";
 
 const CreateNewForm = () => {
-  const [isLoading, setIsLoading] = useState(true)
+  const [isCreate, setIsCreate] = useState();
 
   const [title, setTitle] = useState(""); //OK
 
@@ -32,21 +32,25 @@ const CreateNewForm = () => {
   };
 
   const saveNewForm = async (event) => {
-    try {      
+    try {
       event.preventDefault();
       const formData = {
         title,
         question: inputQuestionsValue,
       };
       const response = await axios.post(
-        "http://localhost:3200/backoffice/create",
+        "http://localhost:3200/form/create",
         formData
       );
-      console.log(response.data)
-      setIsLoading(false);
+      console.log(response.data);
+      setIsCreate(true);
 
       console.log("formData", formData);
-    } catch (error) {}
+    } catch (error) {
+      setIsCreate(false);
+
+      console.log(error);
+    }
   };
 
   return (
@@ -104,7 +108,7 @@ const CreateNewForm = () => {
               icon={"icon-file-text"}
               color={"orangeBlock"}
               name={"Ajouter une question Texte"}
-              type={"text"}
+              type={"textarea"}
               addInput={addInput}
               setAddInput={setAddInput}
               inputQuestionsValue={inputQuestionsValue}
@@ -118,7 +122,7 @@ const CreateNewForm = () => {
               icon={"icon-star"}
               color={"pinkBlock"}
               name={"Ajouter une question Note"}
-              type={"textarea"}
+              type={"radio"}
               addInput={addInput}
               setAddInput={setAddInput}
               inputQuestionsValue={inputQuestionsValue}
@@ -147,6 +151,11 @@ const CreateNewForm = () => {
           </div>
         </div>
       </form>
+      {isCreate ? (
+        <p>formualire enregistrer</p>
+      ) : (
+        <p>formualire n'a pas pu etres enregistrer</p>
+      )}
     </div>
   );
 };

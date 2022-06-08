@@ -1,0 +1,131 @@
+/* HOME BO */
+.boHome {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 25px;
+
+  h1 {
+    parding-left: 20px
+  }
+}
+
+.boHomeTitle {
+  padding-left: 20px;
+}
+
+.blockForm {
+  width: 380px;
+  height: 230px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #0e401c;
+  padding: 1rem;
+}
+
+.blockForm a {
+  text-decoration: none;
+  font-family: "Averta Std PE";
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 27px;
+}
+
+.newForm {
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(270deg,
+      #62c188 0%,
+      rgba(98, 193, 136, 0.5) 98.55%);
+  border-radius: 10px;
+  color: #fff;
+  font-weight: 700;
+  font-size: 26px;
+
+  icon-plus {
+    font-size: 50px;
+  }
+
+  span {
+    line-height: 2rem;
+  }
+
+}
+
+.blockFormExist {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+
+  background: linear-gradient(269.83deg,
+      #eaedef 0.16%,
+      rgba(234, 238, 239, 0.35) 98.29%);
+  border-radius: 10px;
+}
+
+.formExistFirstLine {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  line-height: 27px;
+  margin: 0;
+
+  div:first-child {
+    margin-left: 0px;
+  }
+}
+
+.blockFormExist {
+  padding-left: 20px;
+}
+
+.formExistFormulaire {
+  font-size: 15px;
+}
+
+.formExistTitle {
+  margin-left: 20px;
+}
+
+.formExistLastLine {
+  display: flex;
+  margin-left: 35%;
+  justify-content: flex-end;
+  width: -webkit-fill-available;
+
+  a {
+    font-size: 22px;
+
+    &:first-child {
+      width: 70px;
+      height: 25px;
+      padding: 0.6rem;
+
+      border-radius: 0.4rem;
+
+      text-align: center;
+      margin-right: 15px;
+
+      &:hover {
+        line-height: 22px;
+        border: 2px solid #62c188;
+        border-radius: 5px;
+
+      }
+    }
+
+    span {
+      font-size: 17.5px;
+    }
+
+  }
+}
+
+// a:first-child:hover {
+//   margin-top: 17px;
+// }
