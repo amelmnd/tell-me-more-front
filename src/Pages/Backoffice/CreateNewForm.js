@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -9,19 +9,26 @@ import QuestionTextInput from "../../components/QuestionTextInput";
 
 const CreateNewForm = ({ setPage }) => {
   setPage("createNewForm");
-  const [isCreate, setIsCreate] = useState();
-
+  const [error, setError] = useState("");
   const [title, setTitle] = useState(""); //OK
 
   const [addInput, setAddInput] = useState([]); //OK
+  console.log("addInput", addInput);
   const [inputQuestionsValue, setQuestionsValue] = useState([]);
   console.log("inputQuestionsValue", inputQuestionsValue);
   const [typeInput, setTypeInput] = useState("");
   const [question, setQuestion] = useState("");
 
+  /* input focus */
+  const ref = useRef(null);
+  useEffect(() => {
+    ref?.current?.focus?.();
+  }, [ref]);
+
   const navigate = useNavigate();
 
   const onChangeTitle = (event) => {
+    setError("");
     setTitle(event.target.value);
   };
 
@@ -35,56 +42,73 @@ const CreateNewForm = ({ setPage }) => {
   const saveNewForm = async (event) => {
     try {
       event.preventDefault();
+      if (title.length > 6) {
+        setError("Votre titre doit contenir au minimum 6 caractères ! 😇");
+        throw new Error(
+          "Votre titre doit contenir au minimum 6 caractères ! 😇"
+        );
+      }
+      if (inputQuestionsValue.length === 0) {
+        setError("Votre formulaire doit contenir au moins une question");
+        throw new Error("Votre formulaire doit contenir au moins une question");
+      }
+      if (inputQuestionsValue.length !== addInput.length) {
+        setError("Votre formulaire doit contenir au moins une question");
+        throw new Error("Vos questions ne doivent pas être vides");
+      }
       const formData = {
         title,
         question: inputQuestionsValue,
       };
+
       const response = await axios.post(
         "http://localhost:3200/form/create",
         formData
       );
-      console.log(response.data);
-      setIsCreate(true);
-
-      console.log("formData", formData);
     } catch (error) {
-      setIsCreate(false);
-
       console.log(error);
     }
   };
 
+  /* form to generate input and new form  */
   return (
-    <div className="CreateFormContainer">
-      {/* formulaire permettant la création des data d'un nouveau formulaire  */}
+    <div className="CreateFormContainer whitePage">
       <form onSubmit={saveNewForm}>
-        <div className="header">
-          <Link to="/backoffice">Formulaire</Link>
+        <div className="headerNewForm">
+          <Link to="/backoffice">
+            <span className="icon-chevron-left"></span> <span>Formulaire</span>
+          </Link>
           <input
             type="text"
             name="title"
             value={title}
             id="title"
+            ref={ref}
             placeholder="Veuillez renseigner un nom de formulaire"
             onChange={onChangeTitle}
           />
-          <input
-            className="redButton"
-            type="reset"
-            name="Supprimer"
-            id="Supprimer"
-            onClick={deleteForm}
-            value="Supprimer"
-          />
-          <input className="greenButton" type="submit" name="Sauvgarder" />
+          <div>
+            <input
+              className="redButton"
+              type="reset"
+              name="Supprimer"
+              id="Supprimer"
+              onClick={deleteForm}
+              value="Supprimer"
+            />
+            <input className="greenButton" type="submit" name="Sauvgarder" />
+          </div>
         </div>
-        <div className="content">
+        <div className="content ">
           <div className="divTitle">
-            <h1>Questions</h1>
-            <h1>Personnaliser le formulaire</h1>
+            <h2>Questions</h2>
+
+            <h2>
+              <Link to="/">Personnaliser le formulaire</Link>
+            </h2>
           </div>
 
-          {/* permet d'afficher les imputs créeer grace au bouton  */}
+          {/* read input generate for button */}
           {addInput &&
             addInput.map(({ type, color, icon }, index) => {
               return (
@@ -98,36 +122,32 @@ const CreateNewForm = ({ setPage }) => {
                   inputQuestionsValue={inputQuestionsValue}
                   setQuestionsValue={setQuestionsValue}
                   setTypeInput={setTypeInput}
+                  setError={setError}
                 />
               );
             })}
 
-          {/* Bouton permettant de créer les imput */}
+          {/* create input button */}
           <div className="divButton">
             <CustomButtomForm
-              className="button"
               icon={"icon-file-text"}
               color={"orangeBlock"}
               name={"Ajouter une question Texte"}
               type={"textarea"}
               addInput={addInput}
               setAddInput={setAddInput}
-              inputQuestionsValue={inputQuestionsValue}
-              setQuestionsValue={setQuestionsValue}
-              typeInput={typeInput}
-              setTypeInput={setTypeInput}
-              question={question}
-              setQuestion={setQuestion}
+              setError={setError}
             />
             <CustomButtomForm
+              styles="addInputButton"
               icon={"icon-star"}
               color={"pinkBlock"}
               name={"Ajouter une question Note"}
               type={"radio"}
               addInput={addInput}
               setAddInput={setAddInput}
-              inputQuestionsValue={inputQuestionsValue}
-              setQuestionsValue={setQuestionsValue}
+              setQuestion={setQuestion}
+              setError={setError}
             />
             <CustomButtomForm
               icon={"icon-mail"}
@@ -136,8 +156,7 @@ const CreateNewForm = ({ setPage }) => {
               type={"email"}
               addInput={addInput}
               setAddInput={setAddInput}
-              inputQuestionsValue={inputQuestionsValue}
-              setQuestionsValue={setQuestionsValue}
+              setError={setError}
             />
             <CustomButtomForm
               icon={"icon-question"}
@@ -146,16 +165,15 @@ const CreateNewForm = ({ setPage }) => {
               type={"checkbox"}
               addInput={addInput}
               setAddInput={setAddInput}
-              inputQuestionsValue={inputQuestionsValue}
-              setQuestionsValue={setQuestionsValue}
+              setError={setError}
             />
           </div>
         </div>
       </form>
-      {isCreate ? (
-        <p>formualire enregistrer</p>
-      ) : (
-        <p>formualire n'a pas pu etres enregistrer</p>
+      {error && (
+        <div className="errorMesage">
+          <p>{error}</p>
+        </div>
       )}
     </div>
   );

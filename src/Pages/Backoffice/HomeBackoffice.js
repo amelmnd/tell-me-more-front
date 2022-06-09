@@ -30,7 +30,7 @@ const HomeBackoffice = ({ setPage }) => {
   return isLoading ? (
     <Loading />
   ) : (
-    <section className="whitePage">
+    <section className="whitePage bo">
       <div className="boHome">
         <h1 className="boHomeTitle">Formulaires</h1>
         <div className="homeBackofficeContainer">

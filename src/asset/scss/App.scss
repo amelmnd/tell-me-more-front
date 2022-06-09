@@ -52,28 +52,24 @@ h2 {
 .greenPage {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-content: center;
-  align-items: center;
   width: 90vw;
   min-height: 75vh;
   margin: 5vh auto;
   padding-top: 2rem;
   padding-bottom: 2rem;
   background-color: #eaf9ec;
+  border-radius: 0.5rem;
 }
 
 .whitePage {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-content: center;
-  align-items: center;
   width: 90vw;
   min-height: 75vh;
   margin: 5vh auto 0 auto;
   padding-top: 2rem;
   background-color: #fff;
+  border-radius: 0.5rem;
 }
 
 
@@ -81,84 +77,45 @@ h2 {
 /* BUTTONS */
 .greenButton {
   width: 142px;
+  height: 50px;
   padding: 0.6rem;
   border: none;
   border-radius: 0.4rem;
-  border: 1px solid #62c188;
   color: #fff;
   font-size: 1rem;
   text-align: center;
   text-decoration: none;
+  font-weight: 600;
+  border: 2px solid #62c188;
+
   background-color: #62c188;
   cursor: pointer;
 
   &:hover {
     background-color: #fff;
     color: #62c188;
+    border: 2px solid #62c188;
   }
 }
 
-
 .redButton {
-  width: 140px;
-
+  width: 142px;
+  height: 50px;
   padding: 0.6rem;
-  border: 1px solid #ff7b6f;
+  border: 2px solid #ff7b6f;
   border-radius: 0.4rem;
   background-color: #fff;
   text-decoration: none;
   color: #ff7b6f;
+  font-weight: 600;
   text-align: center;
   cursor: pointer;
 
   &:hover {
     background-color: #ff7b6f;
     color: #fff;
+    border: 2px solid #ff7b6f;
+
   }
 
 }
-
-
-
-
-
-
-
-// addInputButton {
-//   box-sizing: border-box;
-
-// position: absolute;
-// left: 0%;
-// right: 0%;
-// top: 0%;
-// bottom: 0%;
-
-// border: 1px solid #62C188;
-// border-radius: 5px;
-// }
-// addInputButton p {
-//   font-family: 'Averta Std PE';
-// font-style: normal;
-// font-weight: 700;
-// font-size: 18px;
-// line-height: 22px;
-// display: flex;
-// align-items: center;
-
-// color: #62C188;
-
-// }
-
-// inputAdded {
-
-// }
-// inputAddedOranges {}
-// inputAddedPink{}
-// inputAddedBue {}
-// inputAddedRed {}
-
-// picto {
-//   width: 50;
-//   height: 50px;
-//   color: #000000  ;
-// }

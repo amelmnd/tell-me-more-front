@@ -2,6 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 
+import EmptyData from "../../components/EmptyData";
+
 import "../../asset/scss/backoffice/createForm.scss";
 
 const FormAnswer = () => {
@@ -65,9 +67,8 @@ const FormAnswer = () => {
   return isLoading ? (
     <h1>En cours de chargement</h1>
   ) : data.length === 0 ? (
-    <div>
-      <h1 className="userHomeEmptyTitle">Aucun réponse disponible ! 😢 </h1>
-    </div>
+    <EmptyData name={"Aucune réponse"}/>
+
   ) : (
     <>
       <div className="CreateFormContainer">

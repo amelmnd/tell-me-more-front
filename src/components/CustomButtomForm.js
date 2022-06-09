@@ -5,25 +5,21 @@ const CustomButtomForm = ({
   type,
   addInput,
   setAddInput,
-  inputQuestionsValue,
-  setQuestionsValue,
-  typeInput,
-  setTypeInput,
-  question,
-  setQuestion,
+  setError
+
 }) => {
-  
   const addToListInput = (event) => {
     event.preventDefault();
     const newInputList = [
       ...addInput,
       { type: type, color: color, icon: icon },
     ];
+    setError("")
     setAddInput(newInputList);
   };
 
   return (
-    <button onClick={addToListInput}>
+    <button className="addInputButton" onClick={addToListInput}>
       <p>
         <span className={icon}></span>
         {name}

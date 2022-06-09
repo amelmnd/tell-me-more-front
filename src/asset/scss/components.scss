@@ -1,7 +1,19 @@
 /* LOADING */
+.load {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    width: 90vw;
+    min-height: 75vh;
+    margin: 5vh auto 0 auto;
+    padding-top: 2rem;
+    background-color: #fff;
+}
 
 .loading {
     margin-inline: auto;
+
 }
 
 .loading {
@@ -49,9 +61,54 @@
 }
 
 /* EMPTY FORM */
+.emptyForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    width: 90vw;
+    min-height: 75vh;
+    margin: 5vh auto 0 auto;
+    padding-top: 2rem;
+    background-color: #fff;
+}
 
 .userHomeEmptyTitle {
     text-decoration: underline;
     text-decoration-thickness: 2px;
     text-underline-position: from-font;
+}
+
+
+/* BLOCK PICTO COLOR */
+.pinkBlock,
+.orangeBlock,
+.greenBlock,
+.blueBlock {
+    width: 73px;
+    height: 37px;
+    padding: 6px;
+    border-radius: 5px;
+    font-size: 20px;
+    text-align: center;
+    font-size: 20px;
+    color: #fff;
+    line-height: 26px;
+}
+
+
+.pinkBlock {
+    background-color: #F09F97;
+}
+
+.orangeBlock {
+    background-color: #F5BA49;
+}
+
+.greenBlock {
+    background-color: #9ACE83;
+}
+
+.blueBlock {
+    background-color: #79A5DD;
 }

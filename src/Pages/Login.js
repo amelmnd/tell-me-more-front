@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import style from  "../asset/scss/login.scss";
+import "../asset/scss/login.scss";
 
 
 const Login = ({ setAdminCookie }) => {

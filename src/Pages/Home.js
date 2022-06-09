@@ -6,7 +6,7 @@ import "../asset/scss/login.scss";
 import "../asset/scss/home.scss";
 
 import Loading from "../components/Loading";
-import EmptyForm from "../components/EmptyForm";
+import EmptyData from "../components/EmptyData";
 import FormLinkIcon from "../components/FormLinkIcon";
  
 const Home = ({ setPage }) => {
@@ -33,7 +33,7 @@ const Home = ({ setPage }) => {
   return isLoading ? (
     <Loading />
   ) : !data ? (
-    <EmptyForm styles={"greenPage"} />
+    <EmptyData name={"Aucun formulaire"}/>
   ) : (
     <div className="greenPage home">
       <h1>Répondre à un questionnaire</h1>

@@ -1,17 +1,24 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
+import BlockPictoColor from "./BlockPictoColor";
 
+/* Manage input generate */
 const QuestionTextInput = ({
   index,
   icon,
   type,
-  color,
+  setError,
   addInput,
   setAddInput,
   inputQuestionsValue,
   setQuestionsValue,
-
 }) => {
   const [inputValue, setInputValue] = useState("");
+ 
+  const ref = useRef(null);
+
+  useEffect(() => {
+    ref?.current?.focus?.();
+  }, [ref]);
 
   const moveUpElement = (event) => {
     event.preventDefault();
@@ -24,7 +31,6 @@ const QuestionTextInput = ({
       0,
       newInputQuestionsValue.splice(index, 1)[0]
     );
-    console.log(newInputQuestionsValue); // 👉️ ['js', 'ts', 'css']
     setAddInput(newInputList);
     setQuestionsValue(newInputQuestionsValue);
   };
@@ -39,14 +45,12 @@ const QuestionTextInput = ({
       0,
       newInputQuestionsValue.splice(index, 1)[0]
     );
-    console.log(newInputQuestionsValue); // 👉️ ['js', 'ts', 'css']
     setAddInput(newInputList);
     setQuestionsValue(newInputQuestionsValue);
   };
 
   const deleteInput = (event) => {
     event.preventDefault();
-
     const newInputList = [...addInput];
     const newInputQuestionsValue = [...inputQuestionsValue];
     newInputList.splice(index, 1);
@@ -60,29 +64,39 @@ const QuestionTextInput = ({
     setInputValue();
     const newQuestion = [...inputQuestionsValue];
     newQuestion[index] = { type: type, question: event.target.value };
+    setError("")
     setQuestionsValue(newQuestion);
   };
 
-  console.log('inputQuestionsValue', inputQuestionsValue);
-  // const valueQuestion = inputQuestionsValue[index].question ? inputQuestionsValue[index].question : ""
+  console.log("inputQuestionsValue", inputQuestionsValue);
   return (
     <section>
-      <div className="pictoBlockLeft">
-        <p className={color}>
-          {index} - <span className={icon}></span>
-        </p>
-      </div>
+      <BlockPictoColor index={index} type={type} />
       <div className="blockInpuText">
         <input
           type="text"
+          ref={ref}
+          value={
+            inputQuestionsValue[index]?.question
+              ? inputQuestionsValue[index].question
+              : ""
+          }
           onChange={inputQuestionName}
         />
       </div>
       <div className="pictoBlockRigth">
-        <button onClick={moveUpElement}>
+        <button
+          className={index === 0 && "disabledButton"}
+          disabled={index === 0 ? true : false}
+          onClick={moveUpElement}
+        >
           <span className="icon-chevron-up"></span>
         </button>
-        <button onClick={moveDownElement}>
+        <button
+          className={index + 1 === addInput.length && "disabledButton"}
+          disabled={index + 1 === addInput.length ? true : false}
+          onClick={moveDownElement}
+        >
           <span className="icon-chevron-down"></span>
         </button>
         <button onClick={deleteInput}>
