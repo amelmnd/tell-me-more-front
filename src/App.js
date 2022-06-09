@@ -60,16 +60,25 @@ function App() {
       </header>
       <div className="App">
         <Routes>
-          <Route path="/" element={<Home setPage={setPage}/>} />
+          <Route path="/" element={<Home setPage={setPage} />} />
           {isConnected ? (
             <>
               <Route
                 path="/backoffice"
                 element={<HomeBackoffice setPage={setPage} />}
               />
-              <Route path="/backoffice/create" element={<CreateNewForm />} />
-              <Route path="/backoffice/update/:_id" element={<UpdateForm />} />
-              <Route path="/backoffice/answers/:_id" element={<FormAnswer />} />
+              <Route
+                path="/backoffice/create"
+                element={<CreateNewForm setPage={setPage} />}
+              />
+              <Route
+                path="/backoffice/update/:_id"
+                element={<UpdateForm setPage={setPage} />}
+              />
+              <Route
+                path="/backoffice/answers/:_id"
+                element={<FormAnswer setPage={setPage} />}
+              />
             </>
           ) : (
             <>
@@ -80,7 +89,7 @@ function App() {
             </>
           )}
           <Route path="/form/:slug" element={<MyForm />} />
-          <Route path="*" element={<Home setPage={setPage}/>} />
+          <Route path="*" element={<Home setPage={setPage} />} />
         </Routes>
       </div>
     </Router>

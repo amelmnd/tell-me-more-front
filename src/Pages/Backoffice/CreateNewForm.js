@@ -7,7 +7,8 @@ import "../../asset/scss/backoffice/createForm.scss";
 import CustomButtomForm from "../../components/CustomButtomForm";
 import QuestionTextInput from "../../components/QuestionTextInput";
 
-const CreateNewForm = () => {
+const CreateNewForm = ({ setPage }) => {
+  setPage("createNewForm");
   const [isCreate, setIsCreate] = useState();
 
   const [title, setTitle] = useState(""); //OK

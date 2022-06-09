@@ -16,12 +16,9 @@ const HomeBackoffice = ({ setPage }) => {
     const fetchData = async () => {
       try {
         const response = await axios.get("http://localhost:3200/forms");
-        console.log("response", response);
-
         if (response.data.message !== "Form is empty") {
           setData(response.data);
         }
-
         setIsLoading(false);
       } catch (error) {
         console.log(error.response);
@@ -49,18 +46,23 @@ const HomeBackoffice = ({ setPage }) => {
                 <div className="blockFormExist blockForm " key={index}>
                   <div className="formExistFirstLine">
                     <div>
-                      <p className="formExistFormulaire">FORMULAIRE</p>
+                      <p>FORMULAIRE</p>
                     </div>
 
                     <FormLinkIcon slug={item.slug} />
                   </div>
-
-                  <h1 className="formExistTitle">{item.title}</h1>
+                  <div className="formExistTitle">
+                    <h1>
+                      {item.title.length > 50
+                        ? item.title.substring(1, 50) + " ..."
+                        : item.title}
+                    </h1>
+                  </div>
 
                   {/* <BlockForm /> */}
                   <div className="formExistLastLine">
                     <Link to={`/backoffice/update/${item._id}`}>
-                      <span>Editer</span>{" "}
+                      <span>Editer</span>
                     </Link>
                     <Link
                       to={`/backoffice/answers/${item._id}`}

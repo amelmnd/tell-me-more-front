@@ -18,14 +18,11 @@ const Login = ({ setAdminCookie }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (password === "admin") {
-      console.log("create cookie");
       setAdminCookie(true);
       navigate("/backoffice");
     } else {
-      console.log("not good password");
       setPasswordError(true);
     }
-    console.log("password handleSubmit ", password);
   };
 
   const ref = useRef(null);
