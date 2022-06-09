@@ -1,7 +1,7 @@
-const EmptyForm = ({style}) => 
+const EmptyForm = ({styles}) => 
 {
   return (
-    <div className={style}>
+    <div className={styles}>
       <h1 className="userHomeEmptyTitle">Aucun formulaire disponible ! 😢 </h1>
     </div>
   )

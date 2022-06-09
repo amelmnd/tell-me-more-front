@@ -1,5 +1,9 @@
 /* HOME BO */
 .boHome {
+  .greenButton {
+   width:max-content
+  }
+  
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -10,6 +14,16 @@
     parding-left: 20px
   }
 }
+
+.homeBackofficeContainer {
+  display: flex;
+  flex-wrap: wrap;
+
+  div {
+    margin: 20px;
+  }
+}
+
 
 .boHomeTitle {
   padding-left: 20px;
@@ -46,12 +60,12 @@
   font-weight: 700;
   font-size: 26px;
 
-  icon-plus {
-    font-size: 50px;
+  .icon-plus {
+    font-size: 40px;
   }
 
   span {
-    line-height: 2rem;
+    line-height: 2.2rem;
   }
 
 }

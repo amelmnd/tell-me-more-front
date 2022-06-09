@@ -1,0 +1,57 @@
+/* LOADING */
+
+.loading {
+    margin-inline: auto;
+}
+
+.loading {
+    --height: 15px;
+    --loader-color: #62C188;
+    --animation-duration: 0.5s;
+    display: flex;
+    align-items: flex-end;
+    gap: calc(var(--height) / 4);
+    height: calc(var(--height) * 1.75);
+    width: max-content;
+}
+
+.loading:before,
+.loading:after {
+    content: "";
+}
+
+.loading>div,
+.loading:before,
+.loading:after {
+    height: var(--height);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background-color: #62C188;
+    animation: bounce var(--animation-duration) ease-in-out infinite alternate;
+}
+
+.loading:after {
+    animation-delay: calc(var(--animation-duration) / 2);
+}
+
+.loading>div {
+    animation-delay: calc(var(--animation-duration) / 4);
+}
+
+@keyframes bounce {
+    from {
+        transform: translateY(0%);
+    }
+
+    to {
+        transform: translateY(-65%);
+    }
+}
+
+/* EMPTY FORM */
+
+.userHomeEmptyTitle {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-position: from-font;
+}

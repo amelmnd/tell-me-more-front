@@ -4,14 +4,14 @@ import { Link } from "react-router-dom";
 
 import "../../asset/scss/backoffice/homeBackoffice.scss";
 
-// import CreateNewForm from "./CreateNewForm";
-// import Form from "./Form";
+import Loading from "../../components/Loading";
+
 import FormLinkIcon from "../../components/FormLinkIcon";
 
 const HomeBackoffice = ({ setPage }) => {
+  setPage("backofficeHome");
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState();
-  setPage("backofficeHome");
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -31,9 +31,9 @@ const HomeBackoffice = ({ setPage }) => {
   }, []);
 
   return isLoading ? (
-    <h1>En cours de chargement</h1>
+    <Loading />
   ) : (
-    <div className="whitePage">
+    <section className="whitePage">
       <div className="boHome">
         <h1 className="boHomeTitle">Formulaires</h1>
         <div className="homeBackofficeContainer">
@@ -46,10 +46,10 @@ const HomeBackoffice = ({ setPage }) => {
           {data &&
             data.map((item, index) => {
               return (
-                <div className="blockFormExist blockForm " key={item._id}>
+                <div className="blockFormExist blockForm " key={index}>
                   <div className="formExistFirstLine">
                     <div>
-                      <p className="formExistFormulaire">FORULAIRE</p>
+                      <p className="formExistFormulaire">FORMULAIRE</p>
                     </div>
 
                     <FormLinkIcon slug={item.slug} />
@@ -75,7 +75,7 @@ const HomeBackoffice = ({ setPage }) => {
             })}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

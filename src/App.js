@@ -15,11 +15,11 @@ import UpdateForm from "./Pages/Backoffice/UpdateForm";
 import FormAnswer from "./Pages/Backoffice/FormAnswer";
 
 function App() {
+  const [page, setPage] = useState("");
   //Login system
   const [isConnected, setIsConnected] = useState(
     Cookies.get("adminConnected") || null
   );
-  const [page, setPage] = useState("");
   const setAdminCookie = (isConnected) => {
     if (isConnected !== null) {
       Cookies.set("adminConnected", isConnected, { expires: 10 });
@@ -60,7 +60,7 @@ function App() {
       </header>
       <div className="App">
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home setPage={setPage}/>} />
           {isConnected ? (
             <>
               <Route
@@ -80,7 +80,7 @@ function App() {
             </>
           )}
           <Route path="/form/:slug" element={<MyForm />} />
-          <Route path="*" element={<Home />} />
+          <Route path="*" element={<Home setPage={setPage}/>} />
         </Routes>
       </div>
     </Router>

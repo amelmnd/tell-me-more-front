@@ -3,19 +3,20 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import "../asset/scss/login.scss";
+import "../asset/scss/home.scss";
 
-import FormLinkIcon from "../components/FormLinkIcon";
-// import Questions from "./User/Questions";
+import Loading from "../components/Loading";
 import EmptyForm from "../components/EmptyForm";
-
-const Home = () => {
+import FormLinkIcon from "../components/FormLinkIcon";
+ 
+const Home = ({ setPage }) => {
+  setPage("home");
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState();
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get("http://localhost:3200/forms");
-        console.log("response", response);
 
         if (response.data.message !== "Form is empty") {
           setData(response.data);
@@ -30,18 +31,18 @@ const Home = () => {
   }, []);
 
   return isLoading ? (
-    <h1>En cours de chargement</h1>
+    <Loading />
   ) : !data ? (
-    <EmptyForm style={"greenPage"}/>
+    <EmptyForm styles={"greenPage"} />
   ) : (
-    <div className="greenPage">
+    <div className="greenPage home">
       <h1>Répondre à un questionnaire</h1>
       {data.map((item, index) => {
         return (
-          <div className="blockHomeFormExist blockHomeForm" key={item._id}>
-            <div>
+          <div className="blockHomeFormExist blockHomeForm" key={index}>
+            <div className="blockFormExistTitle">
               <Link to={`/form/${item.slug}`}>
-                <h1>{item.title}</h1>
+                <h2>{item.title}</h2>
               </Link>
             </div>
 

@@ -5,7 +5,7 @@ import style from  "../asset/scss/login.scss";
 
 
 const Login = ({ setAdminCookie }) => {
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState("admin");
   const [passwordError, setPasswordError] = useState(false);
 
   const navigate = useNavigate();
