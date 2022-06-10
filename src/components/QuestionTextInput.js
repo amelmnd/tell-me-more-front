@@ -4,15 +4,16 @@ import BlockPictoColor from "./BlockPictoColor";
 /* Manage input generate */
 const QuestionTextInput = ({
   index,
-  icon,
   type,
-  setError,
+  questionValue,
+  // setErrorMessage,
   addInput,
   setAddInput,
   inputQuestionsValue,
   setQuestionsValue,
 }) => {
   const [inputValue, setInputValue] = useState("");
+  console.log('inputQuestionsValue', inputQuestionsValue);
  
   const ref = useRef(null);
 
@@ -64,7 +65,8 @@ const QuestionTextInput = ({
     setInputValue();
     const newQuestion = [...inputQuestionsValue];
     newQuestion[index] = { type: type, question: event.target.value };
-    setError("")
+    console.log('newQuestion[index]', newQuestion[index]);
+    // setErrorMessage("")
     setQuestionsValue(newQuestion);
   };
 

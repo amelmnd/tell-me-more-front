@@ -5,8 +5,7 @@ const CustomButtomForm = ({
   type,
   addInput,
   setAddInput,
-  setError
-
+  // setErrorMessage
 }) => {
   const addToListInput = (event) => {
     event.preventDefault();
@@ -14,7 +13,7 @@ const CustomButtomForm = ({
       ...addInput,
       { type: type, color: color, icon: icon },
     ];
-    setError("")
+    // setErrorMessage();
     setAddInput(newInputList);
   };
 

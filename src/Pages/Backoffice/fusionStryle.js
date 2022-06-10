@@ -6,16 +6,32 @@ import "../../asset/scss/backoffice/createForm.scss";
 
 import CustomButtomForm from "../../components/CustomButtomForm";
 import QuestionTextInput from "../../components/QuestionTextInput";
-import BlockMessage from "../../components/BlockMessage";
 
 const CreateNewForm = ({ setPage }) => {
+  setPage("updateForm");
+  const [isLoading, setIsLoading] = useState(true);
+  const [data, setData] = useState();
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("http://localhost:3200/forms");
+        setData(response.data);
+
+        console.log("response", response.data);
+        setIsLoading(false);
+      } catch (error) {
+        console.log(error.response);
+      }
+    };
+    fetchData();
+  }, []);
+
   setPage("createNewForm");
-  const [goodMessage, setGoodMesage] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
-  const [title, setTitle] = useState(""); //OK
+  const [error, setError] = useState("");
+  const [title, setTitle] = useState("");
 
-  const [addInput, setAddInput] = useState([]); //OK
-
+  const [addInput, setAddInput] = useState([]);
+  console.log("addInput", addInput);
   const [inputQuestionsValue, setQuestionsValue] = useState([]);
   console.log("inputQuestionsValue", inputQuestionsValue);
   const [typeInput, setTypeInput] = useState("");
@@ -30,7 +46,7 @@ const CreateNewForm = ({ setPage }) => {
   const navigate = useNavigate();
 
   const onChangeTitle = (event) => {
-    setErrorMessage("");
+    setError("");
     setTitle(event.target.value);
   };
 
@@ -42,39 +58,33 @@ const CreateNewForm = ({ setPage }) => {
   };
 
   const saveNewForm = async (event) => {
-    try {
-      event.preventDefault();
-
-      if (title.length < 6) {
-        setErrorMessage(
-          "Votre titre doit contenir au minimum 6 caractères ! 😇"
-        );
-        throw new Error(
-          "Votre titre doit contenir au minimum 6 caractères ! 😇"
-        );
-      }
-      if (inputQuestionsValue.length === 0) {
-        setErrorMessage("Votre formulaire doit contenir au moins une question");
-        throw new Error("Votre formulaire doit contenir au moins une question");
-      }
-      if (inputQuestionsValue.length !== addInput.length) {
-        setErrorMessage("Votre formulaire doit contenir au moins une question");
-        throw new Error("Vos questions ne doivent pas être vides");
-      }
-      const formData = {
-        title,
-        question: inputQuestionsValue,
-      };
-
-      const response = await axios.post(
-        "http://localhost:3200/form/create",
-        formData
-      );
-      setGoodMesage("Votre questionnaire a bien été créé ! 😇");
-    } catch (error) {
-      setErrorMessage("Votre formulaire est déjà enregistré");
-      console.log(error);
-    }
+    //   try {
+    //     event.preventDefault();
+    //     if (title.length > 6) {
+    //       setError("Votre titre doit contenir au minimum 6 caractères ! 😇");
+    //       throw new Error(
+    //         "Votre titre doit contenir au minimum 6 caractères ! 😇"
+    //       );
+    //     }
+    //     if (inputQuestionsValue.length === 0) {
+    //       setError("Votre formulaire doit contenir au moins une question");
+    //       throw new Error("Votre formulaire doit contenir au moins une question");
+    //     }
+    //     if (inputQuestionsValue.length !== addInput.length) {
+    //       setError("Votre formulaire doit contenir au moins une question");
+    //       throw new Error("Vos questions ne doivent pas être vides");
+    //     }
+    //     const formData = {
+    //       title,
+    //       question: inputQuestionsValue,
+    //     };
+    //     const response = await axios.post(
+    //       "http://localhost:3200/form/create",
+    //       formData
+    //     );
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
   };
 
   /* form to generate input and new form  */
@@ -116,8 +126,8 @@ const CreateNewForm = ({ setPage }) => {
           </div>
 
           {/* read input generate for button */}
-          {addInput &&
-            addInput.map(({ type, color, icon }, index) => {
+          {data &&
+            data.map(({ type, color, icon }, index) => {
               return (
                 <QuestionTextInput
                   index={index}
@@ -129,7 +139,7 @@ const CreateNewForm = ({ setPage }) => {
                   inputQuestionsValue={inputQuestionsValue}
                   setQuestionsValue={setQuestionsValue}
                   setTypeInput={setTypeInput}
-                  setErrorMessage={setErrorMessage}
+                  setError={setError}
                 />
               );
             })}
@@ -143,7 +153,7 @@ const CreateNewForm = ({ setPage }) => {
               type={"textarea"}
               addInput={addInput}
               setAddInput={setAddInput}
-              setErrorMessage={setErrorMessage}
+              setError={setError}
             />
             <CustomButtomForm
               styles="addInputButton"
@@ -154,7 +164,7 @@ const CreateNewForm = ({ setPage }) => {
               addInput={addInput}
               setAddInput={setAddInput}
               setQuestion={setQuestion}
-              setErrorMessage={setErrorMessage}
+              setError={setError}
             />
             <CustomButtomForm
               icon={"icon-mail"}
@@ -163,7 +173,7 @@ const CreateNewForm = ({ setPage }) => {
               type={"email"}
               addInput={addInput}
               setAddInput={setAddInput}
-              setErrorMessage={setErrorMessage}
+              setError={setError}
             />
             <CustomButtomForm
               icon={"icon-question"}
@@ -172,26 +182,16 @@ const CreateNewForm = ({ setPage }) => {
               type={"checkbox"}
               addInput={addInput}
               setAddInput={setAddInput}
-              setErrorMessage={setErrorMessage}
+              setError={setError}
             />
           </div>
         </div>
       </form>
-      {/* {goodMessage ? (
-        <div className="goodMessage">
-          <p>{goodMessage}</p>
+      {error && (
+        <div className="errorMesage">
+          <p>{error}</p>
         </div>
-      ) : (
-        errorMessage && (
-          <div className="errorMessage">
-            <p>{errorMessage}</p>
-          </div>
-        )
       )}
-      {goodMessage && (
-        <BlockMessage message={goodMessage} styles={goodMessage}/>
-      )}
-      {errorMessage && <BlockMessage message={errorMessage} styles={errorMessage} />} */}
     </div>
   );
 };

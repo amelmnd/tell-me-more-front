@@ -119,3 +119,88 @@ h2 {
   }
 
 }
+
+/* MESSAGE AND ERROR */
+
+.goodMessage,
+.errorMessage {
+  position: absolute;
+  top: 80vh;
+  left: 75vw;
+  padding: 10px;
+  color: #FFF;
+  border-radius: 5px;
+  width: 300px;
+
+  -webkit-animation: errorMesage 1000ms;
+  animation: errorMesage 1000ms;
+}
+
+.goodMessage {
+  background-color: #62c188;
+
+}
+
+.errorMesage {
+  background-color: #FF7B6F;
+}
+
+@-webkit-keyframes errorMesage {
+
+  0% {
+    transform: scaleX(0);
+    opacity: .1;
+  }
+
+  17% {
+    transform: scaleX(.18);
+  }
+
+  24% {
+    transform: scaleX(.4);
+  }
+
+  46% {
+    transform: scaleX(.81);
+  }
+
+  85%,
+  100% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: scaleX(1);
+  }
+
+}
+
+@keyframes move_eye {
+
+  0% {
+    transform: scaleX(0);
+    opacity: .1;
+  }
+
+  17% {
+    transform: scaleX(.18);
+  }
+
+  24% {
+    transform: scaleX(.4);
+  }
+
+  46% {
+    transform: scaleX(.81);
+  }
+
+  85%,
+  100% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: scaleX(1);
+  }
+
+}

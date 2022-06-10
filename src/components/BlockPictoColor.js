@@ -24,7 +24,7 @@ const BlockPictoColor = ({ index, type }) => {
   return (
     <div className="pictoBlockLeft">
       <p className={color}>
-        {index} - <span className={icon}></span>
+        {index + 1} - <span className={icon}></span>
       </p>
     </div>
   );
