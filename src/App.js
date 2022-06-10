@@ -68,7 +68,7 @@ function App() {
                 element={<HomeBackoffice setPage={setPage} />}
               />
               <Route
-                path="/backoffice/create"
+                path="/backoffice/create/:component"
                 element={<CreateNewForm setPage={setPage} />}
               />
               <Route

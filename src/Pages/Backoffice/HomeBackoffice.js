@@ -34,7 +34,7 @@ const HomeBackoffice = ({ setPage }) => {
       <div className="boHome">
         <h1 className="boHomeTitle">Formulaires</h1>
         <div className="homeBackofficeContainer">
-          <Link to="/backoffice/create">
+          <Link to="/backoffice/create/questions">
             <div className="newForm blockForm">
               <span className="icon-plus"></span>
               <span>Nouveau formulaire</span>
@@ -68,7 +68,6 @@ const HomeBackoffice = ({ setPage }) => {
                       to={`/backoffice/answers/${item._id}`}
                       className="greenButton"
                     >
-                      {" "}
                       <span>Voir les réponses</span>
                     </Link>
                   </div>

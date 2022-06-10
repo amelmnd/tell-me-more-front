@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
 import "../../asset/scss/backoffice/createForm.scss";
@@ -7,9 +7,14 @@ import "../../asset/scss/backoffice/createForm.scss";
 import CustomButtomForm from "../../components/CustomButtomForm";
 import QuestionTextInput from "../../components/QuestionTextInput";
 import BlockMessage from "../../components/BlockMessage";
+import CustomizeForm from "../../components/FormCustomize";
+
 
 const CreateNewForm = ({ setPage }) => {
   setPage("createNewForm");
+
+  const { component } = useParams();
+
   const [goodMessage, setGoodMesage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [title, setTitle] = useState(""); //OK
@@ -108,73 +113,82 @@ const CreateNewForm = ({ setPage }) => {
         </div>
         <div className="content ">
           <div className="divTitle">
-            <h2>Questions</h2>
+            <h2>
+              <Link to="/backoffice/create/questions">Questions</Link>
+            </h2>
 
             <h2>
-              <Link to="/">Personnaliser le formulaire</Link>
+              <Link to="/backoffice/create/customizeForm">
+                Personnaliser le formulaire
+              </Link>
             </h2>
           </div>
+          {component === "questions" ? (
+            <div>
+              {/* read input generate for button */}
+              {addInput &&
+                addInput.map(({ type, color, icon }, index) => {
+                  return (
+                    <QuestionTextInput
+                      index={index}
+                      icon={icon}
+                      color={color}
+                      type={type}
+                      addInput={addInput}
+                      setAddInput={setAddInput}
+                      inputQuestionsValue={inputQuestionsValue}
+                      setQuestionsValue={setQuestionsValue}
+                      setTypeInput={setTypeInput}
+                      setErrorMessage={setErrorMessage}
+                    />
+                  );
+                })}
 
-          {/* read input generate for button */}
-          {addInput &&
-            addInput.map(({ type, color, icon }, index) => {
-              return (
-                <QuestionTextInput
-                  index={index}
-                  icon={icon}
-                  color={color}
-                  type={type}
+              {/* create input button */}
+              <div className="divButton">
+                <CustomButtomForm
+                  icon={"icon-file-text"}
+                  color={"orangeBlock"}
+                  name={"Ajouter une question Texte"}
+                  type={"textarea"}
                   addInput={addInput}
                   setAddInput={setAddInput}
-                  inputQuestionsValue={inputQuestionsValue}
-                  setQuestionsValue={setQuestionsValue}
-                  setTypeInput={setTypeInput}
                   setErrorMessage={setErrorMessage}
                 />
-              );
-            })}
-
-          {/* create input button */}
-          <div className="divButton">
-            <CustomButtomForm
-              icon={"icon-file-text"}
-              color={"orangeBlock"}
-              name={"Ajouter une question Texte"}
-              type={"textarea"}
-              addInput={addInput}
-              setAddInput={setAddInput}
-              setErrorMessage={setErrorMessage}
-            />
-            <CustomButtomForm
-              styles="addInputButton"
-              icon={"icon-star"}
-              color={"pinkBlock"}
-              name={"Ajouter une question Note"}
-              type={"radio"}
-              addInput={addInput}
-              setAddInput={setAddInput}
-              setQuestion={setQuestion}
-              setErrorMessage={setErrorMessage}
-            />
-            <CustomButtomForm
-              icon={"icon-mail"}
-              color={"blueBlock"}
-              name={"Ajouter une question Email"}
-              type={"email"}
-              addInput={addInput}
-              setAddInput={setAddInput}
-              setErrorMessage={setErrorMessage}
-            />
-            <CustomButtomForm
-              icon={"icon-question"}
-              color={"greenBlock"}
-              name={"Ajouter une question Oui/Non"}
-              type={"checkbox"}
-              addInput={addInput}
-              setAddInput={setAddInput}
-              setErrorMessage={setErrorMessage}
-            />
-          </div>
+                <CustomButtomForm
+                  styles="addInputButton"
+                  icon={"icon-star"}
+                  color={"pinkBlock"}
+                  name={"Ajouter une question Note"}
+                  type={"radio"}
+                  addInput={addInput}
+                  setAddInput={setAddInput}
+                  setQuestion={setQuestion}
+                  setErrorMessage={setErrorMessage}
+                />
+                <CustomButtomForm
+                  icon={"icon-mail"}
+                  color={"blueBlock"}
+                  name={"Ajouter une question Email"}
+                  type={"email"}
+                  addInput={addInput}
+                  setAddInput={setAddInput}
+                  setErrorMessage={setErrorMessage}
+                />
+                <CustomButtomForm
+                  icon={"icon-question"}
+                  color={"greenBlock"}
+                  name={"Ajouter une question Oui/Non"}
+                  type={"checkbox"}
+                  addInput={addInput}
+                  setAddInput={setAddInput}
+                  setErrorMessage={setErrorMessage}
+                />
+              </div>
+            </div>
+          ) : (
+            component === "customizeForm" && <CustomizeForm />
+          )}
         </div>
       </form>
       {/* {goodMessage ? (
