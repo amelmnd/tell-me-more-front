@@ -42,6 +42,8 @@ const HomeBackoffice = ({ setPage }) => {
           </Link>
           {data &&
             data.map((item, index) => {
+              console.log('item', item._id);
+              
               return (
                 <div className="blockFormExist blockForm " key={index}>
                   <div className="formExistFirstLine">
@@ -61,7 +63,7 @@ const HomeBackoffice = ({ setPage }) => {
 
                   {/* <BlockForm /> */}
                   <div className="formExistLastLine">
-                    <Link to={`/backoffice/update/${item._id}`}>
+                    <Link to={`/backoffice/update/questions/${item._id}`}>
                       <span>Editer</span>
                     </Link>
                     <Link

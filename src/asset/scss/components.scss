@@ -115,23 +115,24 @@
 /* FORM CUTOMIZE */
 .customizeblock {
     display: flex;
-    flex-direction: row;
+    height: 55vh;
 
     .colorCustomizeBlock,
     .imageCustomizeBlock {
-        height: 50vh;
         width: 50%;
-    }
-
-    .colorCustomizeBlock {
         display: flex;
         flex-direction: column;
         justify-content: center;
+        align-content: center;
         align-items: center;
+    }
 
+    .colorCustomizeBlock {
         .colorBigCircleBlock {
             display: flex;
             flex-wrap: wrap;
+            align-items: center;
+            align-content: center;
             justify-content: center;
             width: 400px;
         }
@@ -171,50 +172,83 @@
     }
 
     .nowColorBlock {
-        p{
+        p {
             color: #0E401C;
-            font-weight: 600;        margin: 15px 0;
+            font-weight: 600;
+            margin: 15px 0;
 
         }
-        div{
+
+        div {
             margin: 0 auto;
         }
     }
 
-    .button-wrapper {
-        width: 60%;
-        text-align: center;
-        margin: 20% auto;
-        cursor: pointer;
-        background: #62C188;
-        background: linear-gradient(270deg, #62C188 0%, rgba(98, 193, 136, 0.5) 98.55%);
-        border-radius: 10px;
-        height: 60%;
+    .imageCustomizeBlock {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        color: #fff;
+
+        .button-wrapper {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 300px;
+            height: 350px;
+
+            color: #fff;
+            border-radius: 10px;
+            background: linear-gradient(270deg, #62C188 0%, rgba(98, 193, 136, 0.5) 98.55%);
+            cursor: pointer;
+
+            span.label {
+                padding: 10px 0;
+                font-size: 20px;
+                font-weight: 600;
+            }
+
+            .icon-plus {
+                font-size: 60px;
+            }
+        }
+
+        .imageBloack {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            align-content: center;
+        }
+
+        img {
+            max-width: 500px;
+            max-height: 500px;
+        }
+
+        .redButton {
+            width: max-content;
+            margin-top: 20px;
+            background-color: transparent;
+
+            &:hover {
+                background-color: #ff7b6f;
+            }
+        }
+
+        #upload {
+            display: inline-block;
+            position: absolute;
+
+            width: 300px;
+            height: 350px;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
     }
 
-    .button-wrapper span.label {
-        padding: 10px 0;
-        font-size: 20px;
-        font-weight: 600;
-    }
 
-    .icon-plus {
-        font-size: 60px;
-    }
 
-    #upload {
-        display: inline-block;
-        position: absolute;
-        z-index: 1;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        opacity: 0;
-        cursor: pointer;
-    }
 }

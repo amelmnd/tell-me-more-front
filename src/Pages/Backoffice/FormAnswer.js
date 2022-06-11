@@ -5,12 +5,19 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import EmptyData from "../../components/EmptyData";
 
 import "../../asset/scss/backoffice/createForm.scss";
+import BlockPictoColor from "../../components/BlockPictoColor";
+
+import "../../asset/scss/backoffice/answer.scss";
+
+import { saveAs } from "file-saver";
 
 const FormAnswer = () => {
   const { _id } = useParams();
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState();
+  console.log("data", data);
   const [isDelete, setIsDelete] = useState(false);
+  const [dataAnswers, setDataAnswers] = useState([]);
 
   const navigate = useNavigate();
 
@@ -20,9 +27,32 @@ const FormAnswer = () => {
         const response = await axios.get(
           `http://localhost:3200/answers/${_id}`
         );
-        // console.log("response", response.data);
 
         setData(response.data);
+
+        const middleVarAllData = [];
+        const finallyData = [];
+
+        for (let i = 0; i < response.data?.length; i++) {
+          const parseElements = JSON.parse(response.data[i].formId.elements);
+          parseElements.id = response.data[i]._id;
+          middleVarAllData.push(parseElements);
+        }
+
+        // on intégre les réponses
+        for (let i = 0; i < middleVarAllData?.length; i++) {
+          const oneAnswer = middleVarAllData[i];
+          for (let j = 0; j < oneAnswer.length; j++) {
+            //la ou on veut ajouter la data questions type
+            const element = oneAnswer[j];
+            const question = oneAnswer[j].question;
+            //la ou se trouve la reponse
+            const elementD = response.data[i].answerData;
+            element.answer = elementD[question];
+          }
+          finallyData.push(oneAnswer);
+        }
+        setDataAnswers(finallyData);
 
         setIsLoading(false);
       } catch (error) {
@@ -32,24 +62,51 @@ const FormAnswer = () => {
     fetchData();
   }, []);
 
-  const click = (event) => {
-    event.preventDefault();
-    console.log(event.target);
-    console.log(event.target.id);
+  // const downloadCsv = async (event) => {
+  //   try {
+  //     event.preventDefault();
+  //     await axios.get(`http://localhost:3200/answers/dowloadCsv/${_id}`);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+  const downloadCsv = () => {
+    const date = Date.now();
+
+    saveAs(
+      `http://localhost:3200/answers/dowloadCsv/${_id}`,
+      `answer-${data[0].formId.slug}-${date}.csv`
+    );
   };
 
-  const deleteAnswer = async (event) => {
+  const deleteOneAnswer = async (event) => {
     try {
       event.preventDefault();
 
       await axios.delete(
         `http://localhost:3200/answer/delete/${event.target.id}`
       );
+      console.log("event.target.id", event.target.id);
+      // dataAnswers
+
+      event.preventDefault();
+      const newDataAnswers = [...dataAnswers];
+
+      for (let i = 0; i < newDataAnswers.length; i++) {
+        const element = newDataAnswers[i];
+        if (element.id === event.target.id) {
+          console.log("titi");
+          newDataAnswers.splice(i, 1);
+        }
+      }
+      setDataAnswers(newDataAnswers);
+
       setIsDelete(true);
     } catch (error) {
       console.log(error);
     }
   };
+
   const deleteAllAnswer = async (event) => {
     try {
       event.preventDefault();
@@ -70,40 +127,94 @@ const FormAnswer = () => {
     <EmptyData name={"Aucune réponse"} />
   ) : (
     <>
-      <div className="CreateFormContainer">
-        <div className="header">
-          <Link to="/backoffice">Formulaire</Link>
-          <button className="redButton" onClick={deleteAllAnswer} id={_id}>
-            Supprimer toutes les réponses
-          </button>
-          <button className="greenButton" onClick={click}>
-            Exporter en CSV
-          </button>
+      <div className="answersFormContainer">
+        <div className="headerAnswer">
+          <Link to="/backoffice">
+            <span className="icon-chevron-left"></span> <span>Formulaire</span>
+          </Link>
+
+          <div>
+            <button className="redButton" onClick={deleteAllAnswer} id={_id}>
+              Supprimer toutes les réponses
+            </button>
+
+            <button className="greenButton" onClick={downloadCsv}>
+              Exporter en CSV
+            </button>
+          </div>
         </div>
-        <div className="content">
-          {data.map((itemData, index) => {
+        <div className="content greenPage">
+          <div className="answersTitle">
+            <h1>{data[0].formId.title} </h1>
+          </div>
+          {dataAnswers.map((itemData, indexData) => {
+            console.log("itemData", itemData);
             return (
-              <div key={index}>
-                <h1>{itemData.formId.title} </h1>
-                {itemData.formId.elements.map((itemElement, index) => {
+              <div key={indexData} className="answerBlock">
+                {itemData.map((itemElement, index) => {
                   return (
-                    <div>
-                      <p>{itemElement.type}</p>
-                      <h2>{itemElement.question}</h2>
-                      <p>{itemData.answerData[itemElement.question]}</p>
+                    <div className="answersDatas">
+                      <BlockPictoColor type={itemElement.type} index={index} />
+                      <div className="answersQuestions">
+                        <h2>{itemElement.question}</h2>
+
+                        {itemElement.type === "radio" ? (
+                          <div className="answerRadioType">
+                            <div
+                              className={
+                                itemElement.answer === "1" && "elementActive"
+                              }
+                            >
+                              <p>1</p>
+                            </div>
+                            <div
+                              className={
+                                itemElement.answer === "2" && "elementActive"
+                              }
+                            >
+                              <p>2</p>
+                            </div>
+                            <div
+                              className={
+                                itemElement.answer === "3" && "elementActive"
+                              }
+                            >
+                              <p>3</p>
+                            </div>
+                            <div
+                              className={
+                                itemElement.answer === "4" && "elementActive"
+                              }
+                            >
+                              <p>4</p>
+                            </div>
+                            <div
+                              className={
+                                itemElement.answer === "5" && "elementActive"
+                              }
+                            >
+                              <p>5</p>
+                            </div>
+                          </div>
+                        ) : (
+                          <p>{itemElement.answer}</p>
+                        )}
+                      </div>
                     </div>
                   );
                 })}
-                <p>
-                  {index + 1}/{data.length}
-                </p>
-                <button
-                  className="redButton"
-                  onClick={deleteAnswer}
-                  id={itemData._id}
-                >
-                  Supprimer la réponse
-                </button>
+                <div className="answerFooter">
+                  <p>
+                    {indexData + 1}/{dataAnswers.length}
+                  </p>
+                  <button
+                    className="redButton"
+                    onClick={deleteOneAnswer}
+                    id={itemData.id}
+                  >
+                    Supprimer la réponse
+                  </button>
+                </div>
               </div>
             );
           })}

@@ -13,8 +13,8 @@ const QuestionTextInput = ({
   setQuestionsValue,
 }) => {
   const [inputValue, setInputValue] = useState("");
-  console.log('inputQuestionsValue', inputQuestionsValue);
- 
+  console.log("inputQuestionsValue", inputQuestionsValue);
+
   const ref = useRef(null);
 
   useEffect(() => {
@@ -22,7 +22,6 @@ const QuestionTextInput = ({
   }, [ref]);
 
   const moveUpElement = (event) => {
-    event.preventDefault();
     event.preventDefault();
     const newInputList = [...addInput];
     const newInputQuestionsValue = [...inputQuestionsValue];
@@ -65,11 +64,13 @@ const QuestionTextInput = ({
     setInputValue();
     const newQuestion = [...inputQuestionsValue];
     newQuestion[index] = { type: type, question: event.target.value };
-    console.log('newQuestion[index]', newQuestion[index]);
+    console.log("newQuestion[index]", newQuestion[index]);
     // setErrorMessage("")
     setQuestionsValue(newQuestion);
   };
 
+  console.log("addInput.length ", addInput.length);
+  console.log("index + 1", index + 1);
   console.log("inputQuestionsValue", inputQuestionsValue);
   return (
     <section>
@@ -95,7 +96,9 @@ const QuestionTextInput = ({
           <span className="icon-chevron-up"></span>
         </button>
         <button
-          className={index + 1 === addInput.length && "disabledButton"}
+          // className={
+          //   index + 1 === addInput.length ? "disabledButton" : "activeButton"
+          // }
           disabled={index + 1 === addInput.length ? true : false}
           onClick={moveDownElement}
         >

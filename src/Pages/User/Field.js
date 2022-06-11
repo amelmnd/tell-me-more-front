@@ -12,7 +12,8 @@ const Field = (props) => {
     setValue,
     value,
   } = useField(props);
-  const { label, type, required } = props;
+  const { label, type } = props;
+  console.log("label", label);
   const [isFocused, setIsFocused] = React.useState(false);
   const showError = !isValid && !isFocused && (!isPristine || isSubmitted);
 
@@ -20,7 +21,6 @@ const Field = (props) => {
     <div className={`demo-form-group ${showError ? "is-error" : ""}`}>
       <label className="demo-label" htmlFor={id}>
         {label}
-        {required && " *"}
       </label>
       <input
         key={resetKey}

@@ -7,7 +7,7 @@ import "./asset/scss/App.scss";
 import logo from "./asset/images/logo.svg";
 
 import Home from "./Pages/Home";
-import MyForm from "./Pages/User/MyForm";
+import MyForm from "./Pages/User/Form";
 import Login from "./Pages/Login";
 import HomeBackoffice from "./Pages/Backoffice/HomeBackoffice";
 import CreateNewForm from "./Pages/Backoffice/CreateNewForm";
@@ -72,8 +72,12 @@ function App() {
                 element={<CreateNewForm setPage={setPage} />}
               />
               <Route
-                path="/backoffice/update/:_id"
+                path="/backoffice/update/:component/:_id"
                 element={<UpdateForm setPage={setPage} />}
+              />
+              <Route
+                path="/backoffice/form/:_id"
+                element={<FormAnswer setPage={setPage} />}
               />
               <Route
                 path="/backoffice/answers/:_id"

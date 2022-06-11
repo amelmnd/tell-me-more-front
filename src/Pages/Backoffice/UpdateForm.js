@@ -4,14 +4,14 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 
 import "../../asset/scss/backoffice/createForm.scss";
 
-import "../../asset/scss/backoffice/createForm.scss";
 
 import CustomButtomForm from "../../components/CustomButtomForm";
 import QuestionTextInput from "../../components/QuestionTextInput";
+import CustomizeForm from "../../components/FormCustomize";
 
 const UpadateForm = ({ setPage }) => {
-  const { _id } = useParams();
-  // console.log("_id", _id);
+  const { _id, component } = useParams();
+  console.log("_id", _id);
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState();
   const [isDelete, setIsDelete] = useState(false);
@@ -24,6 +24,7 @@ const UpadateForm = ({ setPage }) => {
   // console.log("inputQuestionsValue", inputQuestionsValue);
   const [typeInput, setTypeInput] = useState("");
   const [question, setQuestion] = useState("");
+  const [picture, setPicture] = useState("");
 
   const navigate = useNavigate();
 
@@ -32,14 +33,18 @@ const UpadateForm = ({ setPage }) => {
       try {
         const response = await axios.get(`http://localhost:3200/form/${_id}`);
 
-        setData(response.data);
-        // console.log("response.data", response.data);
-        setQuestionsValue(response.data.elements);
+        const parseQuestionsValues = JSON.parse(response.data.elements);
+        console.log("parseQuestionsValues", parseQuestionsValues);
+        setQuestionsValue(parseQuestionsValues);
         setIsLoading(false);
         setTitle(response.data.title);
+        console.log('response.data?.picture', response.data?.picture);
+        if (response.data?.picture) {
+          setPicture(response.data.picture);
+        }
 
-        for (let index = 0; index < response.data.elements.length; index++) {
-          const element = response.data.elements[index];
+        for (let index = 0; index < parseQuestionsValues.length; index++) {
+          const element = parseQuestionsValues[index];
           // console.log("element", element);
           let color;
           let icon;
@@ -67,7 +72,7 @@ const UpadateForm = ({ setPage }) => {
           element.icon = icon;
           element.color = color;
         }
-        setAddInput(response.data.elements);
+        setAddInput(parseQuestionsValues);
       } catch (error) {
         console.log(error.response);
       }
@@ -86,6 +91,7 @@ const UpadateForm = ({ setPage }) => {
     setTitle(event.target.value);
   };
 
+  const formData = new FormData();
   const saveNewForm = async (event) => {
     try {
       event.preventDefault();
@@ -106,15 +112,14 @@ const UpadateForm = ({ setPage }) => {
 
       /* clean data before send */
       for (let index = 0; index < inputQuestionsValue.length; index++) {
-        const question = inputQuestionsValue[index];
         delete inputQuestionsValue[index]["icon"];
         delete inputQuestionsValue[index]["color"];
       }
 
-      const formData = {
-        title,
-        question: inputQuestionsValue,
-      };
+      formData.append("title", title);
+      formData.append("picture", picture);
+      formData.append("question", JSON.stringify(inputQuestionsValue));
+
       // console.log("formData", formData);
       const response = await axios.put(
         `http://localhost:3200/form/update/${_id}`,
@@ -126,7 +131,7 @@ const UpadateForm = ({ setPage }) => {
       console.log(error);
     }
   };
- 
+
   const deleteForm = async (event) => {
     try {
       event.preventDefault();
@@ -172,70 +177,81 @@ const UpadateForm = ({ setPage }) => {
         </div>
         <div className="content ">
           <div className="divTitle">
-            <h2>Questions</h2>
+            <h2>
+              <Link to={`/backoffice/update/questions/${_id}`}>Questions</Link>
+            </h2>
 
             <h2>
-              <Link to="/">Personnaliser le formulaire</Link>
+              <Link to={`/backoffice/update/customizeForm/${_id}`}>
+                Personnaliser le formulaire
+              </Link>
             </h2>
           </div>
-
-          {addInput &&
-            addInput.map(({ type, question }, index) => {
-              return (
-                <QuestionTextInput
-                  index={index}
-                  type={type}
-                  questionValue={question}
+          {component === "questions" ? (
+            <>
+              {addInput &&
+                addInput.map(({ type, question }, index) => {
+                  return (
+                    <QuestionTextInput
+                      index={index}
+                      type={type}
+                      questionValue={question}
+                      addInput={addInput}
+                      setAddInput={setAddInput}
+                      inputQuestionsValue={inputQuestionsValue}
+                      setQuestionsValue={setQuestionsValue}
+                      setTypeInput={setTypeInput}
+                      setError={setError}
+                    />
+                  );
+                })}
+              {/* create input button */}
+              <div className="divButton">
+                <CustomButtomForm
+                  icon={"icon-file-text"}
+                  color={"orangeBlock"}
+                  name={"Ajouter une question Texte"}
+                  type={"textarea"}
                   addInput={addInput}
                   setAddInput={setAddInput}
-                  inputQuestionsValue={inputQuestionsValue}
-                  setQuestionsValue={setQuestionsValue}
-                  setTypeInput={setTypeInput}
                   setError={setError}
                 />
-              );
-            })}
-          {/* create input button */}
-          <div className="divButton">
-            <CustomButtomForm
-              icon={"icon-file-text"}
-              color={"orangeBlock"}
-              name={"Ajouter une question Texte"}
-              type={"textarea"}
-              addInput={addInput}
-              setAddInput={setAddInput}
-              setError={setError}
-            />
-            <CustomButtomForm
-              styles="addInputButton"
-              icon={"icon-star"}
-              color={"pinkBlock"}
-              name={"Ajouter une question Note"}
-              type={"radio"}
-              addInput={addInput}
-              setAddInput={setAddInput}
-              setQuestion={setQuestion}
-              setError={setError}
-            />
-            <CustomButtomForm
-              icon={"icon-mail"}
-              color={"blueBlock"}
-              name={"Ajouter une question Email"}
-              type={"email"}
-              addInput={addInput}
-              setAddInput={setAddInput}
-              setError={setError}
-            />
-            <CustomButtomForm
-              icon={"icon-question"}
-              color={"greenBlock"}
-              name={"Ajouter une question Oui/Non"}
-              type={"checkbox"}
-              addInput={addInput}
-              setAddInput={setAddInput}
-              setError={setError}
-            />
-          </div>
+                <CustomButtomForm
+                  styles="addInputButton"
+                  icon={"icon-star"}
+                  color={"pinkBlock"}
+                  name={"Ajouter une question Note"}
+                  type={"radio"}
+                  addInput={addInput}
+                  setAddInput={setAddInput}
+                  setQuestion={setQuestion}
+                  setError={setError}
+                />
+                <CustomButtomForm
+                  icon={"icon-mail"}
+                  color={"blueBlock"}
+                  name={"Ajouter une question Email"}
+                  type={"email"}
+                  addInput={addInput}
+                  setAddInput={setAddInput}
+                  setError={setError}
+                />
+                <CustomButtomForm
+                  icon={"icon-question"}
+                  color={"greenBlock"}
+                  name={"Ajouter une question Oui/Non"}
+                  type={"checkbox"}
+                  addInput={addInput}
+                  setAddInput={setAddInput}
+                  setError={setError}
+                />
+              </div>
+            </>
+          ) : (
+            component === "customizeForm" && (
+              <CustomizeForm picture={picture} setPicture={setPicture} />
+            )
+          )}
         </div>
       </form>
       {error && (

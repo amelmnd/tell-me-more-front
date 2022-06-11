@@ -9,7 +9,6 @@ import QuestionTextInput from "../../components/QuestionTextInput";
 import BlockMessage from "../../components/BlockMessage";
 import CustomizeForm from "../../components/FormCustomize";
 
-
 const CreateNewForm = ({ setPage }) => {
   setPage("createNewForm");
 
@@ -17,9 +16,10 @@ const CreateNewForm = ({ setPage }) => {
 
   const [goodMessage, setGoodMesage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [title, setTitle] = useState(""); //OK
+  const [title, setTitle] = useState("");
+  const [picture, setPicture] = useState("");
 
-  const [addInput, setAddInput] = useState([]); //OK
+  const [addInput, setAddInput] = useState([]);
 
   const [inputQuestionsValue, setQuestionsValue] = useState([]);
   console.log("inputQuestionsValue", inputQuestionsValue);
@@ -46,6 +46,8 @@ const CreateNewForm = ({ setPage }) => {
     console.log("deleteForm", "deleteForm");
   };
 
+  const formData = new FormData();
+
   const saveNewForm = async (event) => {
     try {
       event.preventDefault();
@@ -66,10 +68,17 @@ const CreateNewForm = ({ setPage }) => {
         setErrorMessage("Votre formulaire doit contenir au moins une question");
         throw new Error("Vos questions ne doivent pas être vides");
       }
-      const formData = {
-        title,
-        question: inputQuestionsValue,
-      };
+
+      formData.append("title", title);
+      formData.append("picture", picture);
+
+ 
+      formData.append(
+        "question",
+        JSON.stringify(inputQuestionsValue)
+      );
+
+      console.log("inputQuestionsValue", inputQuestionsValue);
 
       const response = await axios.post(
         "http://localhost:3200/form/create",
@@ -187,7 +196,9 @@ const CreateNewForm = ({ setPage }) => {
               </div>
             </div>
           ) : (
-            component === "customizeForm" && <CustomizeForm />
+            component === "customizeForm" && (
+              <CustomizeForm picture={picture} setPicture={setPicture} />
+            )
           )}
         </div>
       </form>
