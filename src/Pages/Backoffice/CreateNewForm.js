@@ -72,16 +72,12 @@ const CreateNewForm = ({ setPage }) => {
       formData.append("title", title);
       formData.append("picture", picture);
 
- 
-      formData.append(
-        "question",
-        JSON.stringify(inputQuestionsValue)
-      );
+      formData.append("question", JSON.stringify(inputQuestionsValue));
 
       console.log("inputQuestionsValue", inputQuestionsValue);
 
       const response = await axios.post(
-        "http://localhost:3200/form/create",
+        "https://amel-mennad-90.herokuapp.com/form/create",
         formData
       );
       setGoodMesage("Votre questionnaire a bien été créé ! 😇");

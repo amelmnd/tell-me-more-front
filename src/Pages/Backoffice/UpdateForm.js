@@ -4,6 +4,7 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 
 import "../../asset/scss/backoffice/createForm.scss";
 
+import "../../asset/scss/backoffice/createForm.scss";
 
 import CustomButtomForm from "../../components/CustomButtomForm";
 import QuestionTextInput from "../../components/QuestionTextInput";
@@ -31,7 +32,7 @@ const UpadateForm = ({ setPage }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3200/form/${_id}`);
+        const response = await axios.get(`https://amel-mennad-90.herokuapp.com/form/${_id}`);
 
         const parseQuestionsValues = JSON.parse(response.data.elements);
         console.log("parseQuestionsValues", parseQuestionsValues);
@@ -122,7 +123,7 @@ const UpadateForm = ({ setPage }) => {
 
       // console.log("formData", formData);
       const response = await axios.put(
-        `http://localhost:3200/form/update/${_id}`,
+        `https://amel-mennad-90.herokuapp.com/form/update/${_id}`,
         formData
       );
       // console.log("response", response);
@@ -135,7 +136,7 @@ const UpadateForm = ({ setPage }) => {
   const deleteForm = async (event) => {
     try {
       event.preventDefault();
-      await axios.delete(`http://localhost:3200/form/delete/${_id}`);
+      await axios.delete(`https://amel-mennad-90.herokuapp.com/form/delete/${_id}`);
       setAddInput([]);
       setQuestionsValue([]);
       setIsDelete(true);

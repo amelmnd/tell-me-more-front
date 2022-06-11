@@ -25,7 +25,7 @@ const FormAnswer = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3200/answers/${_id}`
+          `https://amel-mennad-90.herokuapp.com/answers/${_id}`
         );
 
         setData(response.data);
@@ -65,7 +65,7 @@ const FormAnswer = () => {
   // const downloadCsv = async (event) => {
   //   try {
   //     event.preventDefault();
-  //     await axios.get(`http://localhost:3200/answers/dowloadCsv/${_id}`);
+  //     await axios.get(`https://amel-mennad-90.herokuapp.com/answers/dowloadCsv/${_id}`);
   //   } catch (error) {
   //     console.log(error);
   //   }
@@ -74,7 +74,7 @@ const FormAnswer = () => {
     const date = Date.now();
 
     saveAs(
-      `http://localhost:3200/answers/dowloadCsv/${_id}`,
+      `https://amel-mennad-90.herokuapp.com/answers/dowloadCsv/${_id}`,
       `answer-${data[0].formId.slug}-${date}.csv`
     );
   };
@@ -84,7 +84,7 @@ const FormAnswer = () => {
       event.preventDefault();
 
       await axios.delete(
-        `http://localhost:3200/answer/delete/${event.target.id}`
+        `https://amel-mennad-90.herokuapp.com/answer/delete/${event.target.id}`
       );
       console.log("event.target.id", event.target.id);
       // dataAnswers
@@ -112,7 +112,7 @@ const FormAnswer = () => {
       event.preventDefault();
 
       await axios.delete(
-        `http://localhost:3200/answers/delete/${event.target.id}`
+        `https://amel-mennad-90.herokuapp.com/answers/delete/${event.target.id}`
       );
 
       navigate("/backoffice");
@@ -247,7 +247,7 @@ const FormAnswer = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3200/answers/${_id}`
+          `https://amel-mennad-90.herokuapp.com/answers/${_id}`
         );
         console.log("response", response.data);
 

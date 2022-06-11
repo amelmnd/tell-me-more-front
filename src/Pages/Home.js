@@ -16,7 +16,7 @@ const Home = ({ setPage }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:3200/forms");
+        const response = await axios.get("https://amel-mennad-90.herokuapp.com/forms");
 
         if (response.data.message !== "Form is empty") {
           setData(response.data);

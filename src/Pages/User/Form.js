@@ -28,11 +28,13 @@ const Form = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3200/form-slug/${slug}`);
-        console.log('response', response.data);
+        const response = await axios.get(
+          `https://amel-mennad-90.herokuapp.com/form-slug/${slug}`
+        );
+        console.log("response", response.data);
         setData(response.data);
-        const parseQuestions = JSON.parse(response.data.elements) 
-        setDataQuestions(parseQuestions)
+        const parseQuestions = JSON.parse(response.data.elements);
+        setDataQuestions(parseQuestions);
         setIsLoading(false);
       } catch (error) {
         console.log(error.response);
@@ -55,10 +57,10 @@ const Form = () => {
       };
 
       const response = await axios.post(
-        "http://localhost:3200/answer/create",
+        "https://amel-mennad-90.herokuapp.com/answer/create",
         awswerData
       );
-    
+
       setIsCreate(true);
 
       // console.log("awswerData", awswerData);
@@ -70,10 +72,7 @@ const Form = () => {
   return isLoading && !data ? (
     <h1>Chargement en cours</h1>
   ) : (
-    <Formiz
-      connect={myForm}
-      onSubmit={handleSubmit}
-    >
+    <Formiz connect={myForm} onSubmit={handleSubmit}>
       <form
         // Change the myForm.submit to myForm.submitStep
         onSubmit={myForm.submitStep}
@@ -87,7 +86,9 @@ const Form = () => {
           const fieldRadio = [];
           if (type === "radio") {
             for (let i = 1; i <= 5; i++) {
-              fieldRadio.push(<FieldRadio name={question} label={i} value={i} />);
+              fieldRadio.push(
+                <FieldRadio name={question} label={i} value={i} />
+              );
             }
           }
 
