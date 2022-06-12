@@ -7,14 +7,18 @@ import "../asset/scss/home.scss";
 import Loading from "../components/Loading";
 import EmptyData from "../components/EmptyData";
 import FormLinkIcon from "../components/FormLinkIcon";
- 
+
 const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState();
-  useEffect(() => {
+  useEffect(({ setPage }) => {
+    setPage("home");
+
     const fetchData = async () => {
       try {
-        const response = await axios.get("https://amel-mennad-90.herokuapp.com/forms");
+        const response = await axios.get(
+          "https://amel-mennad-90.herokuapp.com/forms"
+        );
 
         if (response.data.message !== "Form is empty") {
           setData(response.data);
@@ -31,7 +35,7 @@ const Home = () => {
   return isLoading ? (
     <Loading />
   ) : !data ? (
-    <EmptyData name={"Aucun formulaire"}/>
+    <EmptyData name={"Aucun formulaire"} />
   ) : (
     <div className="greenPage home">
       <h1>Répondre à un questionnaire</h1>

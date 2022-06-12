@@ -149,7 +149,13 @@ const UserForm = () => {
                 <div className="lastStep">
                   <h1>Vos réponses ont bien été enregistrées !</h1>
                   <div className="lastStepbutton">
-                    <button disabled={true} className={"greenButton"} style={{cursor:"not-allowed"	}}>Recommencer</button>
+                    <Link
+                      to={`/form/${data.slug}`}
+                      target="_blanck"
+                      className={"greenButton"}
+                    >
+                      Recommencer
+                    </Link>
                     <Link to="/" className={"greenButton"}>
                       Retourner à l'accueil
                     </Link>

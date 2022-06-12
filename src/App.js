@@ -7,7 +7,7 @@ import "./asset/scss/App.scss";
 import logo from "./asset/images/logo.svg";
 
 import Home from "./Pages/Home";
-import MyForm from "./Pages/User/Form";
+import Form from "./Pages/User/UserForm";
 import Login from "./Pages/Login";
 import HomeBackoffice from "./Pages/Backoffice/HomeBackoffice";
 import CreateNewForm from "./Pages/Backoffice/CreateNewForm";
@@ -41,12 +41,14 @@ function App() {
             <img src={logo} className="header-logo" alt="logo" />
           </Link>
           <nav>
-            <Link
-              to={isConnected ? "/backoffice" : "/backoffice/login"}
-              className={"greenButton"}
-            >
-              Backoffice
-            </Link>
+            {page !== "backofficeHome" && (
+              <Link
+                to={isConnected ? "/backoffice" : "/backoffice/login"}
+                className={"greenButton"}
+              >
+                Backoffice
+              </Link>
+            )}
 
             {isConnected && (
               <Link to="/" onClick={toLogout} className={"redButton"}>
@@ -58,7 +60,7 @@ function App() {
       </header>
       <div className="App">
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home setPage={setPage} />} />
           {isConnected ? (
             <>
               <Route
@@ -67,14 +69,20 @@ function App() {
               />
               <Route
                 path="/backoffice/create/:component"
-                element={<CreateNewForm />}
+                element={<CreateNewForm setPage={setPage} />}
               />
               <Route
                 path="/backoffice/update/:component/:_id"
-                element={<UpdateForm />}
+                element={<UpdateForm setPage={setPage} />}
               />
-              <Route path="/backoffice/form/:_id" element={<FormAnswer />} />
-              <Route path="/backoffice/answers/:_id" element={<FormAnswer />} />
+              <Route
+                path="/backoffice/form/:_id"
+                element={<FormAnswer setPage={setPage} />}
+              />
+              <Route
+                path="/backoffice/answers/:_id"
+                element={<FormAnswer setPage={setPage} />}
+              />
             </>
           ) : (
             <>
@@ -84,8 +92,8 @@ function App() {
               />
             </>
           )}
-          <Route path="/form/:slug" element={<MyForm />} />
-          <Route path="*" element={<Home />} />
+          <Route path="/form/:slug" element={<Form />} />
+          <Route path="*" element={<Home setPage={setPage} />} />
         </Routes>
       </div>
     </Router>

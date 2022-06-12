@@ -9,6 +9,7 @@ import "../../asset/scss/backoffice/createForm.scss";
 import CustomButtomForm from "../../components/CustomButtomForm";
 import QuestionTextInput from "../../components/QuestionTextInput";
 import CustomizeForm from "../../components/FormCustomize";
+import BlockMessage from "../../components/BlockMessage";
 
 const UpadateForm = ({ setPage }) => {
   const { _id, component } = useParams();
@@ -16,6 +17,8 @@ const UpadateForm = ({ setPage }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState();
   const [isDelete, setIsDelete] = useState(false);
+
+  const [message, setMesage] = useState("");
   const [error, setError] = useState("");
   const [title, setTitle] = useState("");
 
@@ -98,6 +101,7 @@ const UpadateForm = ({ setPage }) => {
   const saveNewForm = async (event) => {
     try {
       event.preventDefault();
+
       if (title.length < 6) {
         setError("Votre titre doit contenir au minimum 6 caractères ! 😇");
         throw new Error(
@@ -107,7 +111,16 @@ const UpadateForm = ({ setPage }) => {
       if (inputQuestionsValue.length === 0) {
         setError("Votre formulaire doit contenir au moins une question");
         throw new Error("Votre formulaire doit contenir au moins une question");
+      } else {
+        for (let i = 0; i < inputQuestionsValue.length; i++) {
+          const question = inputQuestionsValue[i].question;
+          if (question === "") {
+            setError("Vos questions ne doivent pas être vides");
+            throw new Error("Vos questions ne doivent pas être vides");
+          }
+        }
       }
+
       if (inputQuestionsValue.length !== addInput.length) {
         setError("Votre formulaire doit contenir au moins une question");
         throw new Error("Vos questions ne doivent pas être vides");
@@ -128,8 +141,7 @@ const UpadateForm = ({ setPage }) => {
         `https://amel-mennad-90.herokuapp.com/form/update/${_id}`,
         formData
       );
-      // console.log("response", response);
-      // setError("")
+      setMesage("Votre questionnaire a bien été mis à jours ! 😇");
     } catch (error) {
       console.log(error);
     }
@@ -149,7 +161,6 @@ const UpadateForm = ({ setPage }) => {
       console.log(error);
     }
   };
-
 
   return isLoading ? (
     <h1>En cours de chargement</h1>
@@ -182,7 +193,7 @@ const UpadateForm = ({ setPage }) => {
           </div>
         </div>
         <div className="content ">
-          <div className="divTitle" >
+          <div className="divTitle">
             <h2>
               <Link to={`/backoffice/update/questions/${_id}`}>Questions</Link>
             </h2>
@@ -260,11 +271,8 @@ const UpadateForm = ({ setPage }) => {
           )}
         </div>
       </form>
-      {error && (
-        <div className="errorMesage">
-          <p>{error}</p>
-        </div>
-      )}
+      {message && <BlockMessage message={message} styles={"goodMessage"} />}
+      {error && <BlockMessage message={error} styles={"errorMessage"} />}
     </div>
   );
 };
