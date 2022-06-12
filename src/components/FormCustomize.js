@@ -1,19 +1,15 @@
+/* component for cuto inside create or update form*/
+
 import { useState } from "react";
 import { CirclePicker } from "react-color";
 
 const FormCustomize = ({ picture, setPicture }) => {
-  console.log("picture", typeof picture);
-  console.log("picture", String(picture));
 
   const [primaryColor, setPrimaryColor] = useState("#62c188");
   const [secondaryColor, setSecondaryColor] = useState("#EAF9EC");
   const [textColor, setTextColor] = useState("#0E401C");
 
-  /*
-"#79a5dd", "#f5ba49", "#b33fd6"
- */
   const handleChangeComplete = (color) => {
-    console.log("color", color);
     switch (color.hex) {
       case "#79a5dd":
         setPrimaryColor(color.hex);
@@ -40,7 +36,6 @@ const FormCustomize = ({ picture, setPicture }) => {
     }
   };
 
-  // const [picture, setPicture] = useState(null);
   const onUploadFile = (event) => {
     setPicture(event.target.files[0]);
   };
@@ -52,12 +47,6 @@ const FormCustomize = ({ picture, setPicture }) => {
   return (
     <div className="customizeblock">
       <div className="colorCustomizeBlock">
-        {/* <div className="colorBigCircleBlock">
-          <div className="color colorBigCircle colorGreen"></div>
-          <div className="color colorBigCircle colorBlue"></div>
-          <div className="color colorBigCircle colorOrange"></div>
-          <div className="color colorBigCircle colorPurple"></div>
-        </div> */}
         <CirclePicker
           circleSpacing={15}
           circleSize={100}

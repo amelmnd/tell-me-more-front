@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Cookies from "js-cookie";
 
@@ -7,7 +7,7 @@ import "./asset/scss/App.scss";
 import logo from "./asset/images/logo.svg";
 
 import Home from "./Pages/Home";
-import Form from "./Pages/User/UserForm";
+import MyForm from "./Pages/User/UserForm";
 import Login from "./Pages/Login";
 import HomeBackoffice from "./Pages/Backoffice/HomeBackoffice";
 import CreateNewForm from "./Pages/Backoffice/CreateNewForm";
@@ -16,6 +16,7 @@ import FormAnswer from "./Pages/Backoffice/FormAnswer";
 
 function App() {
   const [page, setPage] = useState("");
+  
   //Login system
   const [isConnected, setIsConnected] = useState(
     Cookies.get("adminConnected") || null
@@ -76,10 +77,6 @@ function App() {
                 element={<UpdateForm setPage={setPage} />}
               />
               <Route
-                path="/backoffice/form/:_id"
-                element={<FormAnswer setPage={setPage} />}
-              />
-              <Route
                 path="/backoffice/answers/:_id"
                 element={<FormAnswer setPage={setPage} />}
               />
@@ -92,7 +89,7 @@ function App() {
               />
             </>
           )}
-          <Route path="/form/:slug" element={<Form />} />
+          <Route path="/form/:slug" element={<MyForm />} />
           <Route path="*" element={<Home setPage={setPage} />} />
         </Routes>
       </div>

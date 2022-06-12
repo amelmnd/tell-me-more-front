@@ -10,8 +10,10 @@ import FormLinkIcon from "../components/FormLinkIcon";
 
 const Home = ({ setPage }) => {
   setPage("home");
+
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState();
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -25,7 +27,7 @@ const Home = ({ setPage }) => {
 
         setIsLoading(false);
       } catch (error) {
-        console.log(error.response);
+        console.log(error);
       }
     };
     fetchData();

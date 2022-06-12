@@ -4,7 +4,9 @@ import { useNavigate } from "react-router-dom";
 import "../asset/scss/login.scss";
 import BlockMessage from "../components/BlockMessage";
 
-const Login = ({ setAdminCookie }) => {
+const Login = ({ setAdminCookie, setPage }) => {
+  setPage("Login");
+
   const [password, setPassword] = useState("admin");
   const [passwordError, setPasswordError] = useState(false);
 

@@ -1,3 +1,5 @@
+/* component to create picto block in crete, update or read form */
+
 const BlockPictoColor = ({ index, type }) => {
   let color;
   let icon;
@@ -21,6 +23,7 @@ const BlockPictoColor = ({ index, type }) => {
     default:
       break;
   }
+  
   return (
     <div className="pictoBlockLeft">
       <p className={color}>

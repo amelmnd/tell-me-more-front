@@ -1,14 +1,9 @@
-import { useState, useEffect, useRef } from "react";
+/* component to text section inside user form*/
+
 import { useField } from "@formiz/core";
 
 const FieldTextarea = (props) => {
   const { setValue, value } = useField(props);
-
-  const ref = useRef(null);
-
-  useEffect(() => {
-    ref?.current?.focus?.();
-  }, [ref]);
 
   return (
     <div className="textarea-form">
@@ -16,7 +11,6 @@ const FieldTextarea = (props) => {
         <textarea
           rows={5}
           cols={50}
-          ref={ref}
           type="textarea"
           className="textarea"
           placeholder="Répondez ici ..."

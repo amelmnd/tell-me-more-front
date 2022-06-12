@@ -1,3 +1,5 @@
+/* Component to create  button whith creat input inside creat form or update form*/
+
 const CustomButtomForm = ({
   icon,
   color,
@@ -5,15 +7,14 @@ const CustomButtomForm = ({
   type,
   addInput,
   setAddInput,
-  // setErrorMessage
 }) => {
+  
   const addToListInput = (event) => {
     event.preventDefault();
     const newInputList = [
       ...addInput,
       { type: type, color: color, icon: icon },
     ];
-    // setErrorMessage();
     setAddInput(newInputList);
   };
 

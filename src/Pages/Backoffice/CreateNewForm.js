@@ -4,31 +4,25 @@ import axios from "axios";
 
 import "../../asset/scss/backoffice/createForm.scss";
 
-import CustomButtomForm from "../../components/CustomButtomForm";
 import QuestionTextInput from "../../components/QuestionTextInput";
 import BlockMessage from "../../components/BlockMessage";
 import CustomizeForm from "../../components/FormCustomize";
+import BlockCustomButtomForm from "../../components/BlockCustomButtomForm";
 
 const CreateNewForm = ({ setPage }) => {
   setPage("CreateNewForm");
 
   const { component } = useParams();
+  const formData = new FormData();
 
   const [message, setMesage] = useState("");
   const [error, setError] = useState("");
   const [title, setTitle] = useState("");
   const [picture, setPicture] = useState("");
-  // console.log('picture', picture);
-
   const [addInput, setAddInput] = useState([]);
-  // console.log('addInput', addInput);
 
   const [inputQuestionsValue, setQuestionsValue] = useState([]);
-  // console.log("inputQuestionsValue", inputQuestionsValue);
-  const [typeInput, setTypeInput] = useState("");
-  const [question, setQuestion] = useState("");
 
-  /* input focus */
   const ref = useRef(null);
   useEffect(() => {
     ref?.current?.focus?.();
@@ -45,10 +39,7 @@ const CreateNewForm = ({ setPage }) => {
     setAddInput([]);
     setQuestionsValue([]);
     navigate("/backoffice");
-    console.log("deleteForm", "deleteForm");
   };
-
-  const formData = new FormData();
 
   const saveNewForm = async (event) => {
     try {
@@ -60,6 +51,7 @@ const CreateNewForm = ({ setPage }) => {
           "Votre titre doit contenir au minimum 6 caractères ! 😇"
         );
       }
+
       if (inputQuestionsValue.length === 0) {
         setError("Votre formulaire doit contenir au moins une question");
         throw new Error("Votre formulaire doit contenir au moins une question");
@@ -80,12 +72,9 @@ const CreateNewForm = ({ setPage }) => {
 
       formData.append("title", title);
       formData.append("picture", picture);
-
       formData.append("question", JSON.stringify(inputQuestionsValue));
 
-      console.log("inputQuestionsValue", inputQuestionsValue);
-
-      const response = await axios.post(
+      await axios.post(
         "https://amel-mennad-90.herokuapp.com/form/create",
         formData
       );
@@ -99,9 +88,11 @@ const CreateNewForm = ({ setPage }) => {
   return (
     <div className="CreateFormContainer whitePage">
       <form onSubmit={saveNewForm}>
+        {/* start navigation*/}
         <div className="headerNewForm">
           <Link to="/backoffice">
-            <span className="icon-chevron-left"></span> <span>Formulaire</span>
+            <span className="icon-chevron-left"></span>
+            <span>Formulaire</span>
           </Link>
           <input
             type="text"
@@ -136,6 +127,8 @@ const CreateNewForm = ({ setPage }) => {
               </Link>
             </h2>
           </div>
+          {/* end navigation*/}
+
           {component === "questions" ? (
             <div>
               {/* read input generate for button */}
@@ -151,51 +144,15 @@ const CreateNewForm = ({ setPage }) => {
                       setAddInput={setAddInput}
                       inputQuestionsValue={inputQuestionsValue}
                       setQuestionsValue={setQuestionsValue}
-                      setTypeInput={setTypeInput}
-                      setError={setError}
                     />
                   );
                 })}
 
               {/* create input button */}
               <div className="divButton">
-                <CustomButtomForm
-                  icon={"icon-file-text"}
-                  color={"orangeBlock"}
-                  name={"Ajouter une question Texte"}
-                  type={"textarea"}
+                <BlockCustomButtomForm
                   addInput={addInput}
                   setAddInput={setAddInput}
-                  setError={setError}
-                />
-                <CustomButtomForm
-                  styles="addInputButton"
-                  icon={"icon-star"}
-                  color={"pinkBlock"}
-                  name={"Ajouter une question Note"}
-                  type={"radio"}
-                  addInput={addInput}
-                  setAddInput={setAddInput}
-                  setQuestion={setQuestion}
-                  setError={setError}
-                />
-                <CustomButtomForm
-                  icon={"icon-mail"}
-                  color={"blueBlock"}
-                  name={"Ajouter une question Email"}
-                  type={"email"}
-                  addInput={addInput}
-                  setAddInput={setAddInput}
-                  setError={setError}
-                />
-                <CustomButtomForm
-                  icon={"icon-question"}
-                  color={"greenBlock"}
-                  name={"Ajouter une question Oui/Non"}
-                  type={"checkbox"}
-                  addInput={addInput}
-                  setAddInput={setAddInput}
-                  setError={setError}
                 />
               </div>
             </div>
@@ -206,7 +163,7 @@ const CreateNewForm = ({ setPage }) => {
           )}
         </div>
       </form>
-      {message && <BlockMessage message={message} styles={"goodMessage"} />}
+      {message && <BlockMessage message={message} styles={"successe"} />}
       {error && <BlockMessage message={error} styles={"errorMessage"} />}
     </div>
   );

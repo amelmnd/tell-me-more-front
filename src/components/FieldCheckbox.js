@@ -1,22 +1,11 @@
+/* component to yes / no section inside user form*/
+
 import React from "react";
 import { useField } from "@formiz/core";
 
 const FieldCheckbox = (props) => {
-  // console.log('props', props);
-  const {
-    errorMessage,
-    id,
-    isValid,
-    isPristine,
-    isSubmitted,
-    resetKey,
-    setValue,
-    value,
-  } = useField(props);
-
-  const { label, type, required, checkedButton, setCheckedButton } = props;
-  const [isFocused, setIsFocused] = React.useState(false);
-  const showError = !isValid && !isFocused && (!isPristine || isSubmitted);
+  const { setValue } = useField(props);
+  const { checkedButton, setCheckedButton } = props;
 
   return (
     <div className="checkbox-yes-no">

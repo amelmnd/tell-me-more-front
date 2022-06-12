@@ -1,18 +1,17 @@
-import { useState, useRef, useEffect } from "react";
+/* component to manage inpute question input inside create or update */
+
+import {useRef, useEffect } from "react";
 import BlockPictoColor from "./BlockPictoColor";
 
-/* Manage input generate */
 const QuestionTextInput = ({
   index,
   type,
-  questionValue,
-  setError,
   addInput,
   setAddInput,
   inputQuestionsValue,
   setQuestionsValue,
+  setError,
 }) => {
-  const [inputValue, setInputValue] = useState("");
 
   const ref = useRef(null);
 
@@ -20,6 +19,7 @@ const QuestionTextInput = ({
     ref?.current?.focus?.();
   }, [ref]);
 
+  /* move up question input */
   const moveUpElement = (event) => {
     event.preventDefault();
     const newInputList = [...addInput];
@@ -34,6 +34,7 @@ const QuestionTextInput = ({
     setQuestionsValue(newInputQuestionsValue);
   };
 
+  /* move down question input */
   const moveDownElement = (event) => {
     event.preventDefault();
     const newInputList = [...addInput];
@@ -48,6 +49,7 @@ const QuestionTextInput = ({
     setQuestionsValue(newInputQuestionsValue);
   };
 
+  /* delete question input */
   const deleteInput = (event) => {
     event.preventDefault();
     const newInputList = [...addInput];
@@ -58,13 +60,12 @@ const QuestionTextInput = ({
     setQuestionsValue(newInputQuestionsValue);
   };
 
+  /* registrer value input */
   const inputQuestionName = (event) => {
     event.preventDefault();
-    setError("");
-    setInputValue();
+    setError("");;
     const newQuestion = [...inputQuestionsValue];
     newQuestion[index] = { type: type, question: event.target.value };
-    // setErrorMessage("")
     setQuestionsValue(newQuestion);
   };
 
@@ -92,9 +93,6 @@ const QuestionTextInput = ({
           <span className="icon-chevron-up"></span>
         </button>
         <button
-          // className={
-          //   index + 1 === addInput.length ? "disabledButton" : "activeButton"
-          // }
           disabled={index + 1 === addInput.length ? true : false}
           onClick={moveDownElement}
         >

@@ -25,7 +25,6 @@ const UserForm = () => {
 
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState();
-  console.log("data", data);
   const [dataQuestions, setDataQuestions] = useState();
   const [checkedButton, setCheckedButton] = useState();
   const [isSubmit, setIsSubmit] = useState(false);
@@ -41,15 +40,14 @@ const UserForm = () => {
         setDataQuestions(parseQuestions);
         setIsLoading(false);
       } catch (error) {
-        console.log(error.response);
+        console.log(error);
       }
     };
     fetchData();
-  }, []);
+  }, [slug]);
 
   const handleSubmit = async (values) => {
     try {
-      console.log("values", values);
       for (const key in values) {
         if (!values[key]) {
           values[key] = "Pas de réponse";
@@ -80,7 +78,6 @@ const UserForm = () => {
         <Formiz connect={userForm} onSubmit={handleSubmit}>
           <form
             noValidate
-            // Change the userForm.submit to userForm.submitStep
             onSubmit={userForm.submitStep}
           >
             <FormizStep name="step0" className=" formStep firstStep">
@@ -162,7 +159,7 @@ const UserForm = () => {
                   </div>
                   <BlockMessage
                     message={"Votre réponse a bien été enregistrée"}
-                    styles={"goodMessage"}
+                    styles={"successe"}
                   />
                 </div>
               </FormizStep>

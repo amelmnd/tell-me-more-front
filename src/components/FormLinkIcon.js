@@ -1,3 +1,5 @@
+/* componenet icon link to user form for answer */
+
 import { Link } from "react-router-dom";
 
 const FormLinkIcon = ({ slug, target }) => {
