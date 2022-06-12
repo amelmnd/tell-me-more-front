@@ -25,7 +25,7 @@ const Home = ({ setPage }) => {
           setData(response.data);
         }
 
-        // setIsLoading(false);
+        setIsLoading(false);
       } catch (error) {
         console.log(error);
       }

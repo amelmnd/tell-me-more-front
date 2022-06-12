@@ -1,5 +1,5 @@
 /* LOADING */
-.load {
+.loadingPage {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -13,10 +13,6 @@
 
 .loading {
     margin-inline: auto;
-
-}
-
-.loading {
     --height: 15px;
     --loader-color: #62C188;
     --animation-duration: 0.5s;

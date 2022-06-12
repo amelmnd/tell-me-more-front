@@ -1,6 +1,6 @@
 const Loading = () => {
   return (
-    <div className="whitePage">
+    <div className="whitePage loadingPage">
       <div className="loading">
         <div></div>
       </div>
