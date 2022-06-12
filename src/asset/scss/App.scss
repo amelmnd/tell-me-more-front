@@ -126,43 +126,29 @@ h2 {
 .successe,
 .errorMessage {
   position: absolute;
-  top: 80vh;
+  top: 60vh;
   left: 75vw;
   padding: 10px;
   color: #FFF;
   border-radius: 5px;
   width: 300px;
 
-  -webkit-animation: errorMesage 1000ms;
-  animation: errorMesage 1000ms;
+  opacity: 0;
+  height: 0;
+  animation-name: slideLeft;
+  -webkit-animation-name: slideLeft;
+  animation-duration: 10s;
+  -webkit-animation-duration: 10s;
+  animation-timing-function: ease-in-out;
+  -webkit-animation-timing-function: ease-in-out;
 }
 
 .errorMessage {
   background-color: #FF7B6F;
-  opacity: 0;
-  height: 0;
-  animation-name: slideLeft;
-  -webkit-animation-name: slideLeft;
-  animation-duration: 10s;
-  -webkit-animation-duration: 10s;
-  animation-timing-function: ease-in-out;
-  -webkit-animation-timing-function: ease-in-out;
-
 }
 
 .successe {
   background-color: #62c188;
-  opacity: 0;
-  height: 0;
-  animation-name: slideLeft;
-  -webkit-animation-name: slideLeft;
-
-  animation-duration: 10s;
-  -webkit-animation-duration: 10s;
-
-  animation-timing-function: ease-in-out;
-  -webkit-animation-timing-function: ease-in-out;
-
 }
 
 @keyframes slideLeft {

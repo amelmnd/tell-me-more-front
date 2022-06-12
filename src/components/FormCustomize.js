@@ -1,13 +1,8 @@
 /* component for cuto inside create or update form*/
 
-import { useState } from "react";
 import { CirclePicker } from "react-color";
 
-const FormCustomize = ({ picture, setPicture }) => {
-
-  const [primaryColor, setPrimaryColor] = useState("#62c188");
-  const [secondaryColor, setSecondaryColor] = useState("#EAF9EC");
-  const [textColor, setTextColor] = useState("#0E401C");
+const FormCustomize = ({ picture, setPicture, primaryColor, setPrimaryColor, setSecondaryColor, setTextColor }) => {
 
   const handleChangeComplete = (color) => {
     switch (color.hex) {
@@ -43,6 +38,7 @@ const FormCustomize = ({ picture, setPicture }) => {
     event.preventDefault();
     setPicture("");
   };
+
 
   return (
     <div className="customizeblock">

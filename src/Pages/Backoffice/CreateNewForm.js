@@ -6,7 +6,7 @@ import "../../asset/scss/backoffice/createForm.scss";
 
 import QuestionTextInput from "../../components/QuestionTextInput";
 import BlockMessage from "../../components/BlockMessage";
-import CustomizeForm from "../../components/FormCustomize";
+import FormCustomize from "../../components/FormCustomize";
 import BlockCustomButtomForm from "../../components/BlockCustomButtomForm";
 
 const CreateNewForm = ({ setPage }) => {
@@ -18,10 +18,13 @@ const CreateNewForm = ({ setPage }) => {
   const [message, setMesage] = useState("");
   const [error, setError] = useState("");
   const [title, setTitle] = useState("");
-  const [picture, setPicture] = useState("");
   const [addInput, setAddInput] = useState([]);
-
   const [inputQuestionsValue, setQuestionsValue] = useState([]);
+
+  const [picture, setPicture] = useState("");
+  const [primaryColor, setPrimaryColor] = useState("#62c188");
+  const [secondaryColor, setSecondaryColor] = useState("#EAF9EC");
+  const [textColor, setTextColor] = useState("#0E401C");
 
   const ref = useRef(null);
   useEffect(() => {
@@ -70,9 +73,18 @@ const CreateNewForm = ({ setPage }) => {
         throw new Error("Vos questions ne doivent pas être vides");
       }
 
+      const color = {
+        primary: primaryColor,
+        secondary: secondaryColor,
+        text: textColor,
+      };
+
+
       formData.append("title", title);
       formData.append("picture", picture);
       formData.append("question", JSON.stringify(inputQuestionsValue));
+
+      formData.append("color", JSON.stringify(color))
 
       await axios.post(
         "https://amel-mennad-90.herokuapp.com/form/create",
@@ -144,6 +156,7 @@ const CreateNewForm = ({ setPage }) => {
                       setAddInput={setAddInput}
                       inputQuestionsValue={inputQuestionsValue}
                       setQuestionsValue={setQuestionsValue}
+                      setError={setError}
                     />
                   );
                 })}
@@ -158,7 +171,14 @@ const CreateNewForm = ({ setPage }) => {
             </div>
           ) : (
             component === "customizeForm" && (
-              <CustomizeForm picture={picture} setPicture={setPicture} />
+              <FormCustomize
+                picture={picture}
+                primaryColor={primaryColor}
+                setPicture={setPicture}
+                setPrimaryColor={setPrimaryColor}
+                setSecondaryColor={setSecondaryColor}
+                setTextColor={setTextColor}
+              />
             )
           )}
         </div>

@@ -6,7 +6,7 @@ import "../../asset/scss/backoffice/createForm.scss";
 import "../../asset/scss/backoffice/createForm.scss";
 
 import QuestionTextInput from "../../components/QuestionTextInput";
-import CustomizeForm from "../../components/FormCustomize";
+import FormCustomize from "../../components/FormCustomize";
 import BlockMessage from "../../components/BlockMessage";
 import BlockCustomButtomForm from "../../components/BlockCustomButtomForm";
 
@@ -23,6 +23,9 @@ const UpadateForm = ({ setPage }) => {
   const [addInput, setAddInput] = useState([]);
   const [inputQuestionsValue, setQuestionsValue] = useState([]);
   const [picture, setPicture] = useState("");
+  const [primaryColor, setPrimaryColor] = useState("#62c188");
+  const [secondaryColor, setSecondaryColor] = useState("#EAF9EC");
+  const [textColor, setTextColor] = useState("#0E401C");
 
   useEffect(() => {
     ref?.current?.focus?.();
@@ -191,7 +194,7 @@ const UpadateForm = ({ setPage }) => {
               <Link to={`/backoffice/update/questions/${_id}`}>Questions</Link>
             </h2>
             <h2>
-              <Link to={`/backoffice/update/customizeForm/${_id}`}>
+              <Link to={`/backoffice/update/FormCustomize/${_id}`}>
                 Personnaliser le formulaire
               </Link>
             </h2>
@@ -223,8 +226,15 @@ const UpadateForm = ({ setPage }) => {
               </div>
             </>
           ) : (
-            component === "customizeForm" && (
-              <CustomizeForm picture={picture} setPicture={setPicture} />
+            component === "FormCustomize" && (
+              <FormCustomize
+                picture={picture}
+                primaryColor={primaryColor}
+                setPicture={setPicture}
+                setPrimaryColor={setPrimaryColor}
+                setSecondaryColor={setSecondaryColor}
+                setTextColor={setTextColor}
+              />
             )
           )}
         </div>
