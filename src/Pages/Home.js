@@ -8,12 +8,11 @@ import Loading from "../components/Loading";
 import EmptyData from "../components/EmptyData";
 import FormLinkIcon from "../components/FormLinkIcon";
 
-const Home = () => {
+const Home = ({ setPage }) => {
+  setPage("home");
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState();
-  useEffect(({ setPage }) => {
-    setPage("home");
-
+  useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
