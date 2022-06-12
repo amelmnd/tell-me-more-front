@@ -5,6 +5,7 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import "../../asset/scss/backoffice/answer.scss";
 import "../../asset/scss/backoffice/createForm.scss";
 
+import Loading from "../../components/Loading";
 import EmptyData from "../../components/EmptyData";
 import BlockPictoColor from "../../components/BlockPictoColor";
 
@@ -109,7 +110,7 @@ const FormAnswer = ({ setPage }) => {
   };
 
   return isLoading ? (
-    <h1>En cours de chargement</h1>
+    <Loading />
   ) : data.length === 0 ? (
     <EmptyData name={"Aucune réponse"} />
   ) : (

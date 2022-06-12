@@ -5,6 +5,7 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import "../../asset/scss/backoffice/createForm.scss";
 import "../../asset/scss/backoffice/createForm.scss";
 
+import Loading from "../../components/Loading";
 import QuestionTextInput from "../../components/QuestionTextInput";
 import FormCustomize from "../../components/FormCustomize";
 import BlockMessage from "../../components/BlockMessage";
@@ -153,7 +154,7 @@ const UpadateForm = ({ setPage }) => {
   };
 
   return isLoading ? (
-    <h1>En cours de chargement</h1>
+    <Loading />
   ) : (
     <div className="CreateFormContainer whitePage">
       <form onSubmit={saveNewForm}>

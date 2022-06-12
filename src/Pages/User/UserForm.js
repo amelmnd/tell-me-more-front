@@ -9,10 +9,11 @@ import { useParams, Link } from "react-router-dom";
 
 // Import Formiz methode
 import { Formiz, FormizStep, useForm } from "@formiz/core";
+import { isEmail } from "@formiz/validations";
 
 import "../../asset/scss/userForm.scss";
 
-import { isEmail } from "@formiz/validations";
+import Loading from "../../components/Loading";
 import FieldEmail from "../../components/FieldEmail";
 import FieldRadio from "../../components/FieldRadio";
 import FieldCheckbox from "../../components/FieldCheckbox";
@@ -71,15 +72,12 @@ const UserForm = () => {
   };
 
   return isLoading && !data ? (
-    <h1>Chargement en cours</h1>
+    <Loading />
   ) : (
     <>
       <div className="greenPage userForm">
         <Formiz connect={userForm} onSubmit={handleSubmit}>
-          <form
-            noValidate
-            onSubmit={userForm.submitStep}
-          >
+          <form noValidate onSubmit={userForm.submitStep}>
             <FormizStep name="step0" className=" formStep firstStep">
               <div className="firstStepText">
                 <h2 className="startSondage">SONDAGE</h2>
