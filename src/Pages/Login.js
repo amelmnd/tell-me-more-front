@@ -7,7 +7,7 @@ import BlockMessage from "../components/BlockMessage";
 const Login = ({ setAdminCookie, setPage }) => {
   setPage("Login");
 
-  const [password, setPassword] = useState("admin");
+  const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState(false);
 
   const navigate = useNavigate();
