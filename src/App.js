@@ -16,7 +16,7 @@ import FormAnswer from "./Pages/Backoffice/FormAnswer";
 
 function App() {
   const [page, setPage] = useState("");
-  
+
   //Login system
   const [isConnected, setIsConnected] = useState(
     Cookies.get("adminConnected") || null
@@ -85,7 +85,9 @@ function App() {
             <>
               <Route
                 path="/backoffice/login"
-                element={<Login setAdminCookie={setAdminCookie} />}
+                element={
+                  <Login setAdminCookie={setAdminCookie} setPage={setPage} />
+                }
               />
             </>
           )}
