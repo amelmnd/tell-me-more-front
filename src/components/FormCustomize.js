@@ -2,8 +2,14 @@
 
 import { CirclePicker } from "react-color";
 
-const FormCustomize = ({ picture, setPicture, primaryColor, setPrimaryColor, setSecondaryColor, setTextColor }) => {
-
+const FormCustomize = ({
+  picture,
+  setPicture,
+  primaryColor,
+  setPrimaryColor,
+  setSecondaryColor,
+  setTextColor,
+}) => {
   const handleChangeComplete = (color) => {
     switch (color.hex) {
       case "#79a5dd":
@@ -39,10 +45,10 @@ const FormCustomize = ({ picture, setPicture, primaryColor, setPrimaryColor, set
     setPicture("");
   };
 
-
   return (
     <div className="customizeblock">
       <div className="colorCustomizeBlock">
+        <h2>Ne permet pas encore la personnalisation du formulaire 😢</h2>
         <CirclePicker
           circleSpacing={15}
           circleSize={100}
