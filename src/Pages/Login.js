@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import "../asset/scss/login.scss";
-
+import BlockMessage from "../components/BlockMessage";
 
 const Login = ({ setAdminCookie }) => {
   const [password, setPassword] = useState("admin");
@@ -31,7 +31,7 @@ const Login = ({ setAdminCookie }) => {
   }, [ref]);
 
   return (
-    <div className="whitePage">
+    <div className="whitePage login">
       <h1>Accéder à mon espace Admin</h1>
       <form className="loginForm" onSubmit={handleSubmit}>
         <input
@@ -48,7 +48,12 @@ const Login = ({ setAdminCookie }) => {
           className={"button,  greenButton"}
         />
       </form>
-      {passwordError && <p>Veuillez entrer un mot de passe valide.</p>}
+      {passwordError && (
+        <BlockMessage
+          message={"Veuillez entrer un mot de passe valide"}
+          styles={"errorMessage"}
+        />
+      )}
     </div>
   );
 };

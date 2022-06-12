@@ -43,8 +43,6 @@ const Home = () => {
                 <h2>{item.title}</h2>
               </Link>
             </div>
-
-            {/* <BlockForm /> */}
             <div className="blockFormExistButton">
               <FormLinkIcon slug={item.slug} />
             </div>

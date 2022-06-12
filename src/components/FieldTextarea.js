@@ -1,18 +1,14 @@
-import React from "react";
+import { useState, useEffect, useRef } from "react";
 import { useField } from "@formiz/core";
 
-const Field = (props) => {
-  const {
-    isValid,
-    isPristine,
-    isSubmitted,
-    resetKey,
-    setValue,
-    value,
-  } = useField(props);
-  const { label, type } = props;
-  const [isFocused, setIsFocused] = React.useState(false);
-  const showError = !isValid && !isFocused && (!isPristine || isSubmitted);
+const FieldTextarea = (props) => {
+  const { setValue, value } = useField(props);
+
+  const ref = useRef(null);
+
+  useEffect(() => {
+    ref?.current?.focus?.();
+  }, [ref]);
 
   return (
     <div className="textarea-form">
@@ -20,17 +16,16 @@ const Field = (props) => {
         <textarea
           rows={5}
           cols={50}
+          ref={ref}
           type="textarea"
           className="textarea"
           placeholder="Répondez ici ..."
-
           value={value || ""}
-        onChange={(e) => setValue(e.target.value)}
-        onFocus={() => setIsFocused(true)}
+          onChange={(e) => setValue(e.target.value)}
         />
       </div>
     </div>
   );
 };
 
-export default Field;
+export default FieldTextarea;

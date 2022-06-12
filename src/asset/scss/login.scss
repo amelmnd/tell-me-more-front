@@ -1,23 +1,26 @@
 /* LOGIN */
-
-.loginForm {
-  display: flex;
+.login {
   justify-content: center;
-  width: 100%;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-}
 
-.loginForm input[type="password"] {
-  width: 340px;
-  margin-right: 15px;
-  padding-left: 0.5rem;
-  border: 1px solid #62c188;
-  border-radius: 0.3rem;
-  background-color: #eaf9ec;
-}
+  .loginForm {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
 
-.loginForm input[type="password"]:focus {
-  outline: none;
-  border: 1px solid #62c188;
+  .loginForm input[type="password"] {
+    width: 340px;
+    margin-right: 15px;
+    padding-left: 0.5rem;
+    border: 1px solid #62c188;
+    border-radius: 0.3rem;
+    background-color: #eaf9ec;
+  }
+
+  .loginForm input[type="password"]:focus {
+    outline: none;
+    border: 1px solid #62c188;
+  }
 }

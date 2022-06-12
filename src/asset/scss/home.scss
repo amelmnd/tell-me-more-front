@@ -1,11 +1,9 @@
 .home {
-
     justify-content: flex-start;
     padding-top: 70px;
     margin-bottom: 70px;
 
     h1 {
-
         text-decoration: underline;
         text-decoration-thickness: 3px;
         text-underline-position: from-font;
@@ -15,8 +13,6 @@
         margin-top: 2.5rem;
         display: flex;
         justify-content: center;
-
-
     }
 
     .blockFormExistTitle {
@@ -33,9 +29,6 @@
             line-height: 30px;
             color: #0E401C;
         }
-
-
-
     }
 
     .blockFormExistButton {
@@ -46,7 +39,7 @@
         border-radius: 5px;
         background-color: #62C188;
         border: none;
-
+        
         a {
             color: #FFF;
             font-size: 30px;

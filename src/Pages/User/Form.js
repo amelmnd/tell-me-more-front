@@ -1,13 +1,14 @@
+/**
+ * It takes in a message and a styles prop, and returns a div with a p tag inside of it
+ * @returns A React component.
+ */
 import axios from "axios";
 
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 
-import {
-  Formiz,
-  FormizStep, // Import the FormizStep component
-  useForm,
-} from "@formiz/core";
+// Import Formiz methode
+import { Formiz, FormizStep, useForm } from "@formiz/core";
 
 import "../../asset/scss/userForm.scss";
 
@@ -16,7 +17,7 @@ import FieldEmail from "../../components/FieldEmail";
 import FieldRadio from "../../components/FieldRadio";
 import FieldCheckbox from "../../components/FieldCheckbox";
 import FieldTextarea from "../../components/FieldTextarea";
-import FieldLastStep from "../../components/FieldLastStep";
+import BlockMessage from "../../components/BlockMessage";
 
 const UserForm = () => {
   const userForm = useForm();
@@ -24,10 +25,8 @@ const UserForm = () => {
 
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState();
-  const [isCreate, setIsCreate] = useState();
+  console.log("data", data);
   const [dataQuestions, setDataQuestions] = useState();
-  // const [checkboxChecked, setChecked] = React.useState("Oui");
-  // console.log('values', value);
   const [checkedButton, setCheckedButton] = useState();
   const [isSubmit, setIsSubmit] = useState(false);
 
@@ -62,7 +61,7 @@ const UserForm = () => {
         answerData: values,
       };
 
-      const response = await axios.post(
+      await axios.post(
         "https://amel-mennad-90.herokuapp.com/answer/create",
         awswerData
       );
@@ -84,10 +83,17 @@ const UserForm = () => {
             // Change the userForm.submit to userForm.submitStep
             onSubmit={userForm.submitStep}
           >
-            <FormizStep name="step0" className=" formStep">
-              <h2 className="startSondage">SONDAGE</h2>
-              <h1>{data.title}</h1>
-              <h2>{dataQuestions.length} Questions</h2>
+            <FormizStep name="step0" className=" formStep firstStep">
+              <div className="firstStepText">
+                <h2 className="startSondage">SONDAGE</h2>
+                <h1>{data.title}</h1>
+                <h2>{dataQuestions.length} Questions</h2>
+              </div>
+              {data.picture && (
+                <div className="firstStepImage">
+                  <img src={data.picture} alt={data.title} />
+                </div>
+              )}
             </FormizStep>
             {dataQuestions.map(({ _id, type, question }, index) => {
               const step = `step${index + 1}`;
@@ -115,7 +121,7 @@ const UserForm = () => {
                       />
                     </div>
                   )}
-                  {type == "textarea" && (
+                  {type === "textarea" && (
                     <FieldTextarea
                       name={question}
                       label={question}
@@ -142,11 +148,16 @@ const UserForm = () => {
               <FormizStep name={`step${dataQuestions.length + 1}`}>
                 <div className="lastStep">
                   <h1>Vos réponses ont bien été enregistrées !</h1>
-                  <div>
+                  <div className="lastStepbutton">
+                    <button disabled={true} className={"greenButton"} style={{cursor:"not-allowed"	}}>Recommencer</button>
                     <Link to="/" className={"greenButton"}>
                       Retourner à l'accueil
                     </Link>
                   </div>
+                  <BlockMessage
+                    message={"Votre réponse a bien été enregistrée"}
+                    styles={"goodMessage"}
+                  />
                 </div>
               </FormizStep>
             )}

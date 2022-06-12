@@ -1,45 +1,36 @@
-import React from "react";
+import { useState } from "react";
 import { useField } from "@formiz/core";
+import BlockMessage from "./BlockMessage";
 
 const FieldEmail = (props) => {
   const {
     errorMessage,
     id,
     isValid,
-    isPristine,
-    isSubmitted,
     resetKey,
     setValue,
     value,
   } = useField(props);
-  const { label, type } = props;
-  const [isFocused, setIsFocused] = React.useState(true);
-  const showError = !isValid && !isFocused && (!isPristine || isSubmitted);
+  const [isFocused, setIsFocused] = useState(true);
 
-  
   return (
-    <div className={`email-form ${showError ? "is-error" : ""}`}>
+    <div className="email-form">
       <input
         key={resetKey}
         id={id}
         type="email"
         value={value || ""}
         className="email-input"
-        placeholder=""
+        placeholder="Répondez ici ..."
         onChange={(e) => setValue(e.target.value)}
-        onFocus={() => setIsFocused(true)}
-        onBlur={() => setIsFocused(false)}
         aria-invalid={!isValid}
         aria-describedby={!isValid ? `${id}-error` : null}
       />
-     {(errorMessage) && (
-        <div id={`${id}-error`} className="demo-form-feedback">
-          { errorMessage }
-        </div>
+      {errorMessage && (
+        <BlockMessage message={errorMessage} styles={"errorMessage"}  />
       )}
     </div>
-  )
-
+  );
 };
 
 export default FieldEmail;
