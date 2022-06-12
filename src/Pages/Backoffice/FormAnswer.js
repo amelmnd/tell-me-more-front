@@ -17,6 +17,7 @@ const FormAnswer = () => {
   const [data, setData] = useState();
   console.log("data", data);
   const [isDelete, setIsDelete] = useState(false);
+  const [isLastOne, setIsLastOne] = useState(false);
   const [dataAnswers, setDataAnswers] = useState([]);
 
   const navigate = useNavigate();
@@ -95,13 +96,14 @@ const FormAnswer = () => {
       for (let i = 0; i < newDataAnswers.length; i++) {
         const element = newDataAnswers[i];
         if (element.id === event.target.id) {
-          console.log("titi");
           newDataAnswers.splice(i, 1);
         }
       }
       setDataAnswers(newDataAnswers);
-
       setIsDelete(true);
+      if (dataAnswers.length === 1) {
+        navigate("/backoffice");
+      }
     } catch (error) {
       console.log(error);
     }

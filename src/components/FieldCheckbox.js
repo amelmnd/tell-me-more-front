@@ -13,43 +13,36 @@ const FieldCheckbox = (props) => {
     setValue,
     value,
   } = useField(props);
-  // console.log('value', props.value);
-  const { label, type, required } = props;
-  const [isFocused, setIsFocused] = React.useState(true);
+
+  const { label, type, required, checkedButton, setCheckedButton } = props;
+  const [isFocused, setIsFocused] = React.useState(false);
   const showError = !isValid && !isFocused && (!isPristine || isSubmitted);
 
-  const [checked, setChecked] = React.useState("Oui");
-
-  const handleChange = (e) => {
-    //need because testing value and boolean false data
-    if (checked === "Non"){
-      setChecked("Oui")
-    } else if (checked === "Oui"){
-      setChecked("Non")
-    }
-    setValue(checked);
-  }
-
-
-
   return (
-    <>
-      <label className="demo-label" htmlFor={id}>
-        {label}
-      </label>
-
-      <input
-        id={id}
-        type={"checkbox"}
-        placeholder={"Répondez ici ..."}
-        value={props.value || "Non"}
-        className="demo-input"
-        // onChange={() => setChecked(!checked)}
-        onChange={handleChange}
-        onFocus={() => setIsFocused(true)}
-      />
-      {showError && <div id={`${id}-error`}>{errorMessage}</div>}
-    </>
+    <div className="checkbox-yes-no">
+      <div className="yesNoButton">
+        <div
+          onClick={(event) => {
+            setCheckedButton(true);
+            setValue("Oui");
+          }}
+          className={checkedButton ? "checked" : "noChecked"}
+          value="Oui"
+        >
+          OUI
+        </div>
+        <div
+          onClick={(event) => {
+            setCheckedButton(false);
+            setValue("Non");
+          }}
+          className={checkedButton ? "noChecked" : "checked"}
+          value="Non"
+        >
+          NON
+        </div>
+      </div>
+    </div>
   );
 };
 

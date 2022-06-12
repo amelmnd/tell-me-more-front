@@ -13,7 +13,6 @@ const QuestionTextInput = ({
   setQuestionsValue,
 }) => {
   const [inputValue, setInputValue] = useState("");
-  console.log("inputQuestionsValue", inputQuestionsValue);
 
   const ref = useRef(null);
 
@@ -64,14 +63,10 @@ const QuestionTextInput = ({
     setInputValue();
     const newQuestion = [...inputQuestionsValue];
     newQuestion[index] = { type: type, question: event.target.value };
-    console.log("newQuestion[index]", newQuestion[index]);
     // setErrorMessage("")
     setQuestionsValue(newQuestion);
   };
 
-  console.log("addInput.length ", addInput.length);
-  console.log("index + 1", index + 1);
-  console.log("inputQuestionsValue", inputQuestionsValue);
   return (
     <section>
       <BlockPictoColor index={index} type={type} />

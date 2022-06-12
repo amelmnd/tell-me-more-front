@@ -32,14 +32,16 @@ const UpadateForm = ({ setPage }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`https://amel-mennad-90.herokuapp.com/form/${_id}`);
+        const response = await axios.get(
+          `https://amel-mennad-90.herokuapp.com/form/${_id}`
+        );
 
         const parseQuestionsValues = JSON.parse(response.data.elements);
         console.log("parseQuestionsValues", parseQuestionsValues);
         setQuestionsValue(parseQuestionsValues);
         setIsLoading(false);
         setTitle(response.data.title);
-        console.log('response.data?.picture', response.data?.picture);
+        console.log("response.data?.picture", response.data?.picture);
         if (response.data?.picture) {
           setPicture(response.data.picture);
         }
@@ -136,7 +138,9 @@ const UpadateForm = ({ setPage }) => {
   const deleteForm = async (event) => {
     try {
       event.preventDefault();
-      await axios.delete(`https://amel-mennad-90.herokuapp.com/form/delete/${_id}`);
+      await axios.delete(
+        `https://amel-mennad-90.herokuapp.com/form/delete/${_id}`
+      );
       setAddInput([]);
       setQuestionsValue([]);
       setIsDelete(true);
@@ -145,6 +149,7 @@ const UpadateForm = ({ setPage }) => {
       console.log(error);
     }
   };
+
 
   return isLoading ? (
     <h1>En cours de chargement</h1>
@@ -177,7 +182,7 @@ const UpadateForm = ({ setPage }) => {
           </div>
         </div>
         <div className="content ">
-          <div className="divTitle">
+          <div className="divTitle" >
             <h2>
               <Link to={`/backoffice/update/questions/${_id}`}>Questions</Link>
             </h2>

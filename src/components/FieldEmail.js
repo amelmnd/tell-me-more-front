@@ -1,7 +1,7 @@
 import React from "react";
 import { useField } from "@formiz/core";
 
-const Field = (props) => {
+const FieldEmail = (props) => {
   const {
     errorMessage,
     id,
@@ -13,34 +13,33 @@ const Field = (props) => {
     value,
   } = useField(props);
   const { label, type } = props;
-  console.log("label", label);
-  const [isFocused, setIsFocused] = React.useState(false);
+  const [isFocused, setIsFocused] = React.useState(true);
   const showError = !isValid && !isFocused && (!isPristine || isSubmitted);
 
+  
   return (
-    <div className={`demo-form-group ${showError ? "is-error" : ""}`}>
-      <label className="demo-label" htmlFor={id}>
-        {label}
-      </label>
+    <div className={`email-form ${showError ? "is-error" : ""}`}>
       <input
         key={resetKey}
         id={id}
-        type={type || "text"}
+        type="email"
         value={value || ""}
-        className="demo-input"
+        className="email-input"
+        placeholder=""
         onChange={(e) => setValue(e.target.value)}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
         aria-invalid={!isValid}
         aria-describedby={!isValid ? `${id}-error` : null}
       />
-      {showError && (
+     {(errorMessage) && (
         <div id={`${id}-error`} className="demo-form-feedback">
-          {errorMessage}
+          { errorMessage }
         </div>
       )}
     </div>
-  );
+  )
+
 };
 
-export default Field;
+export default FieldEmail;
