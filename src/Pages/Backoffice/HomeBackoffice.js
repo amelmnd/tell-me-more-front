@@ -9,7 +9,6 @@ import Loading from "../../components/Loading";
 import FormLinkIcon from "../../components/FormLinkIcon";
 
 const HomeBackoffice = ({setPage}) => {
-  
 
   setPage("backofficeHome");
   const [isLoading, setIsLoading] = useState(true);

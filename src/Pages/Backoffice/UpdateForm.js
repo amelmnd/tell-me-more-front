@@ -12,8 +12,9 @@ import CustomizeForm from "../../components/FormCustomize";
 import BlockMessage from "../../components/BlockMessage";
 
 const UpadateForm = ({ setPage }) => {
+  setPage("UpadateForm");
+
   const { _id, component } = useParams();
-  console.log("_id", _id);
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState();
   const [isDelete, setIsDelete] = useState(false);
