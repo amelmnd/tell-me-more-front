@@ -9,8 +9,7 @@ import QuestionTextInput from "../../components/QuestionTextInput";
 import BlockMessage from "../../components/BlockMessage";
 import CustomizeForm from "../../components/FormCustomize";
 
-const CreateNewForm = ({ setPage }) => {
-  setPage("createNewForm");
+const CreateNewForm = () => {
 
   const { component } = useParams();
 

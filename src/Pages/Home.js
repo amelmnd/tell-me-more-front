@@ -2,15 +2,13 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-import "../asset/scss/login.scss";
 import "../asset/scss/home.scss";
 
 import Loading from "../components/Loading";
 import EmptyData from "../components/EmptyData";
 import FormLinkIcon from "../components/FormLinkIcon";
  
-const Home = ({ setPage }) => {
-  setPage("home");
+const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState();
   useEffect(() => {
