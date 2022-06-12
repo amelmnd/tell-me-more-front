@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 
-const FormLinkIcon = ({ slug }) => {
+const FormLinkIcon = ({ slug, target }) => {
   return (
     <div>
-      <Link to={`/form/${slug}`}>
+      <Link to={`/form/${slug}`} target={target}>
         <span className="icon-external-link"></span>
       </Link>
     </div>

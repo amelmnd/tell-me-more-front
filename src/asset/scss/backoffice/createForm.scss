@@ -14,7 +14,7 @@
         font-size: 16px;
     }
 
-    input[type="textarea"] {
+    input[type="text"] {
         padding: 10px;
         width: 50%;
         height: 50px;
@@ -47,7 +47,7 @@
     flex-direction: column;
     width: 90vw;
     min-height: 65vh;
-    padding: 40px 50px;
+    padding: 50px 60px;
     background-color: #EAF9EC;
     border-radius: 5px;
 
@@ -76,7 +76,7 @@
     .divButton {
         button {
             &:nth-child(2) {
-                margin: 2rem;
+                margin: 1rem;
             }
 
             &:nth-child(3) {

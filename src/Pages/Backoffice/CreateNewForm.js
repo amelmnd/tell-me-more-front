@@ -10,18 +10,19 @@ import BlockMessage from "../../components/BlockMessage";
 import CustomizeForm from "../../components/FormCustomize";
 
 const CreateNewForm = () => {
-
   const { component } = useParams();
 
-  const [goodMessage, setGoodMesage] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+  const [message, setMesage] = useState("");
+  const [error, setError] = useState("");
   const [title, setTitle] = useState("");
   const [picture, setPicture] = useState("");
+  // console.log('picture', picture);
 
   const [addInput, setAddInput] = useState([]);
+  // console.log('addInput', addInput);
 
   const [inputQuestionsValue, setQuestionsValue] = useState([]);
-  console.log("inputQuestionsValue", inputQuestionsValue);
+  // console.log("inputQuestionsValue", inputQuestionsValue);
   const [typeInput, setTypeInput] = useState("");
   const [question, setQuestion] = useState("");
 
@@ -34,7 +35,7 @@ const CreateNewForm = () => {
   const navigate = useNavigate();
 
   const onChangeTitle = (event) => {
-    setErrorMessage("");
+    setError("");
     setTitle(event.target.value);
   };
 
@@ -52,19 +53,26 @@ const CreateNewForm = () => {
       event.preventDefault();
 
       if (title.length < 6) {
-        setErrorMessage(
-          "Votre titre doit contenir au minimum 6 caractères ! 😇"
-        );
+        setError("Votre titre doit contenir au minimum 6 caractères ! 😇");
         throw new Error(
           "Votre titre doit contenir au minimum 6 caractères ! 😇"
         );
       }
       if (inputQuestionsValue.length === 0) {
-        setErrorMessage("Votre formulaire doit contenir au moins une question");
+        setError("Votre formulaire doit contenir au moins une question");
         throw new Error("Votre formulaire doit contenir au moins une question");
+      } else {
+        for (let i = 0; i < inputQuestionsValue.length; i++) {
+          const question = inputQuestionsValue[i].question;
+          if (question === "") {
+            setError("Vos questions ne doivent pas être vides");
+            throw new Error("Vos questions ne doivent pas être vides");
+          }
+        }
       }
+
       if (inputQuestionsValue.length !== addInput.length) {
-        setErrorMessage("Votre formulaire doit contenir au moins une question");
+        setError("Votre formulaire doit contenir au moins une question");
         throw new Error("Vos questions ne doivent pas être vides");
       }
 
@@ -79,9 +87,8 @@ const CreateNewForm = () => {
         "https://amel-mennad-90.herokuapp.com/form/create",
         formData
       );
-      setGoodMesage("Votre questionnaire a bien été créé ! 😇");
+      setMesage("Votre questionnaire a bien été créé ! 😇");
     } catch (error) {
-      setErrorMessage("Votre formulaire est déjà enregistré");
       console.log(error);
     }
   };
@@ -130,7 +137,7 @@ const CreateNewForm = () => {
           {component === "questions" ? (
             <div>
               {/* read input generate for button */}
-              {addInput &&
+              {addInput.length > 0 &&
                 addInput.map(({ type, color, icon }, index) => {
                   return (
                     <QuestionTextInput
@@ -143,7 +150,7 @@ const CreateNewForm = () => {
                       inputQuestionsValue={inputQuestionsValue}
                       setQuestionsValue={setQuestionsValue}
                       setTypeInput={setTypeInput}
-                      setErrorMessage={setErrorMessage}
+                      setError={setError}
                     />
                   );
                 })}
@@ -157,7 +164,7 @@ const CreateNewForm = () => {
                   type={"textarea"}
                   addInput={addInput}
                   setAddInput={setAddInput}
-                  setErrorMessage={setErrorMessage}
+                  setError={setError}
                 />
                 <CustomButtomForm
                   styles="addInputButton"
@@ -168,7 +175,7 @@ const CreateNewForm = () => {
                   addInput={addInput}
                   setAddInput={setAddInput}
                   setQuestion={setQuestion}
-                  setErrorMessage={setErrorMessage}
+                  setError={setError}
                 />
                 <CustomButtomForm
                   icon={"icon-mail"}
@@ -177,7 +184,7 @@ const CreateNewForm = () => {
                   type={"email"}
                   addInput={addInput}
                   setAddInput={setAddInput}
-                  setErrorMessage={setErrorMessage}
+                  setError={setError}
                 />
                 <CustomButtomForm
                   icon={"icon-question"}
@@ -186,7 +193,7 @@ const CreateNewForm = () => {
                   type={"checkbox"}
                   addInput={addInput}
                   setAddInput={setAddInput}
-                  setErrorMessage={setErrorMessage}
+                  setError={setError}
                 />
               </div>
             </div>
@@ -197,21 +204,8 @@ const CreateNewForm = () => {
           )}
         </div>
       </form>
-      {/* {goodMessage ? (
-        <div className="goodMessage">
-          <p>{goodMessage}</p>
-        </div>
-      ) : (
-        errorMessage && (
-          <div className="errorMessage">
-            <p>{errorMessage}</p>
-          </div>
-        )
-      )}
-      {goodMessage && (
-        <BlockMessage message={goodMessage} styles={goodMessage}/>
-      )}
-      {errorMessage && <BlockMessage message={errorMessage} styles={errorMessage} />} */}
+      {message && <BlockMessage message={message} styles={"goodMessage"} />}
+      {error && <BlockMessage message={error} styles={"errorMessage"} />}
     </div>
   );
 };

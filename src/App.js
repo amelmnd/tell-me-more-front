@@ -41,14 +41,12 @@ function App() {
             <img src={logo} className="header-logo" alt="logo" />
           </Link>
           <nav>
-            {page !== "backofficeHome" && (
-              <Link
-                to={isConnected ? "/backoffice" : "/backoffice/login"}
-                className={"greenButton"}
-              >
-                Backoffice
-              </Link>
-            )}
+            <Link
+              to={isConnected ? "/backoffice" : "/backoffice/login"}
+              className={"greenButton"}
+            >
+              Backoffice
+            </Link>
 
             {isConnected && (
               <Link to="/" onClick={toLogout} className={"redButton"}>
@@ -63,7 +61,10 @@ function App() {
           <Route path="/" element={<Home />} />
           {isConnected ? (
             <>
-              <Route path="/backoffice" element={<HomeBackoffice setPage={setPage} />} />
+              <Route
+                path="/backoffice"
+                element={<HomeBackoffice setPage={setPage} />}
+              />
               <Route
                 path="/backoffice/create/:component"
                 element={<CreateNewForm />}

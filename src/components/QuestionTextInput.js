@@ -6,7 +6,7 @@ const QuestionTextInput = ({
   index,
   type,
   questionValue,
-  // setErrorMessage,
+  setError,
   addInput,
   setAddInput,
   inputQuestionsValue,
@@ -60,6 +60,7 @@ const QuestionTextInput = ({
 
   const inputQuestionName = (event) => {
     event.preventDefault();
+    setError("");
     setInputValue();
     const newQuestion = [...inputQuestionsValue];
     newQuestion[index] = { type: type, question: event.target.value };

@@ -9,8 +9,7 @@ import Loading from "../../components/Loading";
 import FormLinkIcon from "../../components/FormLinkIcon";
 
 const HomeBackoffice = () => {
-  
-  // setPage("backofficeHome");
+
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState();
   useEffect(() => {
@@ -52,7 +51,7 @@ const HomeBackoffice = () => {
                       <p>FORMULAIRE</p>
                     </div>
 
-                    <FormLinkIcon slug={item.slug} />
+                    <FormLinkIcon slug={item.slug} target={"_blank"} />
                   </div>
                   <div className="formExistTitle">
                     <h1>
